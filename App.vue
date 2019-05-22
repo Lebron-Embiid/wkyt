@@ -1,0 +1,90 @@
+<script>
+	export default {
+		onLaunch: function() {
+			console.log('App Launch');
+		},
+		onShow: function() {
+			console.log('App Show');
+		},
+		onHide: function() {
+			console.log('App Hide');
+		}
+	}
+</script>
+
+<style lang="scss">
+	.page_bg{background: #efeef3 !important;min-height: 100%;position: fixed;width: 100%;z-index: -1;left: 0;top: 0;}
+	/*每个页面公共css */
+	/* uni-app默认全局使用flex布局。因为flex布局有利于跨更多平台，尤其是采用原生渲染的平台。如不了解flex布局，请参考http://www.w3.org/TR/css3-flexbox/。如不使用flex布局，请删除或注释掉本行。*/
+	body,
+	page {
+		min-height: 100%;
+		display: flex;
+	}
+
+	/* #ifdef MP-BAIDU */
+	page {
+		width: 100%;
+		height: 100%;
+		display: block;
+	}
+
+	swan-template {
+		width: 100%;
+		min-height: 100%;
+		display: flex;
+	}
+
+	/* #endif */
+
+	/* 原生组件模式下需要注意组件外部样式 */
+	m-input {
+		width: 100%;
+		min-height: 100%;
+		display: flex;
+	}
+	
+	.content {
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+		background-color: #efeff4;
+		padding: 20upx;
+	}
+
+	.input-group {
+		background-color: #ffffff;
+		margin-top: 40upx;
+		position: relative;
+	}
+
+	.input-row{
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		padding-bottom: 10upx;
+		border-bottom: 1px solid #D6D6D6;
+		margin-top: 60upx;
+		image{
+			display: inline-block;
+			width: 28upx;
+			height: 34upx !important;
+		}
+		.m-input{
+			color: #c1c1c1;
+			font-size: 26upx;
+		}
+	}
+
+	button.primary {
+		height: 90upx;
+		line-height: 90upx;
+		background-color: #3d88eb;
+		border-radius: 50upx;
+		font-size: 30upx;
+		margin: 80upx 0 30upx;
+	}
+	button.primary:after{
+		border: 0;
+	}
+</style>
