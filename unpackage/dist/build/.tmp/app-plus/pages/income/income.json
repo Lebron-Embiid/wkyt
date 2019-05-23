@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "收益",
+  "titleNView": {
+    "splitLine": {
+      "color": "#F4F4F4"
+    }
+  },
+  "animationType": "pop-in",
+  "animationDuration": 300,
+  "usingComponents": {}
+}

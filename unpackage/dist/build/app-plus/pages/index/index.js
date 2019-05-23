@@ -1,0 +1,2 @@
+setCssToHead([".",[1],"a_video.",[1],"data-v-1e0c4c9f { position: fixed; display: block; width: 100%; height: 0px; }\n.",[1],"cover_video_view .",[1],"cv_title.",[1],"data-v-1e0c4c9f { display: block; width: 100%; color: #fff; font-size: ",[0,36],"; text-align: center; margin: ",[0,15]," 0; }\n",],undefined,{path:"./pages/index/index.wxss"})();
+document.dispatchEvent(new CustomEvent("generateFuncReady", { detail: { generateFunc: $gwx('./pages/index/index.wxml') } }));

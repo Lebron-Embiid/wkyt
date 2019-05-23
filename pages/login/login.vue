@@ -25,18 +25,19 @@
             <text>|</text>
             <navigator url="/pages/pwd/pwd">找回密码</navigator>
         </view>
-		<view class="three_login">
+		<view class="three_login" v-if="hasProvider">
 			<view class="tl_title">第三方登录</view>
 			<view class="tl_img_box">
-				<view class="tl_icon"><image src="../../static/img/weixin.png" mode="widthFix"></image></view>
-				<view class="tl_icon"><image src="../../static/img/qq.png" mode="widthFix"></image></view>
+				<view class="tl_icon" @tap="oauth(provider.value)" v-for="provider in providerList" :key="provider.value">
+					<image :src="provider.image" mode="widthFix"></image>
+				</view>
 			</view>
 		</view>
-        <view class="oauth-row" v-if="hasProvider" v-bind:style="{top: positionTop + 'px'}">
+        <!-- <view class="oauth-row" v-if="hasProvider" v-bind:style="{top: positionTop + 'px'}">
             <view class="oauth-image" v-for="provider in providerList" :key="provider.value">
                 <image :src="provider.image" @tap="oauth(provider.value)"></image>
             </view>
-        </view>
+        </view> -->
     </view>
 </template>
 
@@ -65,7 +66,7 @@
         methods: {
             ...mapMutations(['login']),
             initProvider() {
-                const filters = ['weixin', 'qq', 'sinaweibo'];
+                const filters = ['weixin', 'qq'];
                 uni.getProvider({
                     service: 'oauth',
                     success: (res) => {

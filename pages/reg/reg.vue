@@ -192,6 +192,8 @@
 		.yzm{
 			color: #257cf2;
 			font-size: 20upx;
+			width: 25%;
+			text-align: right;
 		}
 	}
 </style>

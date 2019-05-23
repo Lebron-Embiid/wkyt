@@ -1,0 +1,127 @@
+@charset "UTF-8";
+.page_bg {
+  background: #efeef3 !important;
+  min-height: 100%;
+  position: fixed;
+  width: 100%;
+  z-index: -1;
+  left: 0;
+  top: 0;
+}
+.status_bar {
+  height: var(--status-bar-height);
+  width: 100%;
+  background-color: #efeef3;
+}
+.top_view {
+  height: var(--status-bar-height);
+  width: 100%;
+  position: fixed;
+  background-color: #efeef3;
+  top: 0;
+  z-index: 999;
+}
+/*每个页面公共css */
+/* uni-app默认全局使用flex布局。因为flex布局有利于跨更多平台，尤其是采用原生渲染的平台。如不了解flex布局，请参考http://www.w3.org/TR/css3-flexbox/。如不使用flex布局，请删除或注释掉本行。*/
+page,
+page {
+  min-height: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+/* 原生组件模式下需要注意组件外部样式 */
+m-input {
+  width: 100%;
+  min-height: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+uni-picker .uni-picker-item {
+  font-size: 28rpx;
+}
+.toNextPage {
+  padding: 0 60rpx;
+  margin-top: 130rpx;
+}
+.toNextPage button {
+    height: 85rpx;
+    line-height: 85rpx;
+    color: #fff;
+    font-size: 30rpx;
+    background: #257cf2;
+    border-radius: 5rpx;
+}
+.toNextPage button:after {
+      border: 0;
+}
+.bor {
+  border-top: 1px solid #DFDFDF;
+  border-bottom: 1px solid #DFDFDF;
+}
+.mb20 {
+  margin-bottom: 25rpx;
+}
+.content {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-color: #efeff4;
+  padding: 20rpx;
+}
+.input-group {
+  background-color: #ffffff;
+  margin-top: 40rpx;
+  position: relative;
+}
+.input-row {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-bottom: 10rpx;
+  border-bottom: 1px solid #D6D6D6;
+  margin-top: 60rpx;
+}
+.input-row image {
+    display: inline-block;
+    width: 28rpx;
+    height: 34rpx !important;
+}
+.input-row .m-input {
+    color: #c1c1c1;
+    font-size: 26rpx;
+}
+button.primary {
+  height: 90rpx;
+  line-height: 90rpx;
+  background-color: #3d88eb;
+  border-radius: 50rpx;
+  font-size: 30rpx;
+  margin: 80rpx 0 30rpx;
+}
+button.primary:after {
+  border: 0;
+}
+

@@ -1,0 +1,1 @@
+<view class="index_view data-v-1e0c4c9f" bind:__l="__l"><video class="a_video data-v-1e0c4c9f" src="{{url}}" poster="{{poster_img}}" autoplay="{{autoplay}}" show-center-play-btn="{{play}}" enable-progress-gesture="{{progress}}" controls="{{controls}}" direction="0"></video></view>

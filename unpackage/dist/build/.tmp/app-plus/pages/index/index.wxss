@@ -1,0 +1,15 @@
+.a_video.data-v-1e0c4c9f {
+  position: fixed;
+  display: block;
+  width: 100%;
+  height: 0px;
+}
+.cover_video_view .cv_title.data-v-1e0c4c9f {
+  display: block;
+  width: 100%;
+  color: #fff;
+  font-size: 36rpx;
+  text-align: center;
+  margin: 15rpx 0;
+}
+

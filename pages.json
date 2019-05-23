@@ -1,10 +1,17 @@
 {
     "pages": [ //pages数组中第一项表示应用启动页,
         {
+            "path": "pages/login/login",
+            "style": {
+        		"navigationStyle": "custom",
+                "navigationBarTitleText": ""
+            }
+        },{
             "path": "pages/index/index",
             "style": {
 				"navigationStyle": "custom",
                 "navigationBarTitleText": "",
+				"navigationBarBackgroundColor": "#000",
 				"app-plus":{
 					"animationType": "pop-in",
 					"animationDuration": 300
@@ -48,12 +55,6 @@
                 "navigationBarTitleText": "登录模板"
             }
         }, {
-            "path": "pages/login/login",
-            "style": {
-				"navigationStyle": "custom",
-                "navigationBarTitleText": ""
-            }
-        }, {
             "path": "pages/reg/reg",
             "style": {
 				"navigationStyle": "custom",
@@ -74,6 +75,45 @@
             "style": {
 				"navigationStyle": "custom",
                 "navigationBarTitleText": "",
+				"navigationBarBackgroundColor": "#efeef3",
+				"app-plus":{
+					"animationType": "pop-in",
+					"animationDuration": 300
+				}
+            }
+        }, {
+            "path": "pages/interest/interest",
+            "style": {
+				"navigationStyle": "custom",
+                "navigationBarTitleText": "",
+				"navigationBarBackgroundColor": "#efeef3",
+				"app-plus":{
+					"animationType": "pop-in",
+					"animationDuration": 300
+				}
+            }
+        }, {
+            "path": "pages/my_collect/my_collect",
+            "style": {
+                "navigationBarTitleText": "我的收藏",
+				"app-plus":{
+					"animationType": "pop-in",
+					"animationDuration": 300
+				}
+            }
+        }, {
+            "path": "pages/business_info/business_info",
+            "style": {
+                "navigationBarTitleText": "商家资料",
+				"app-plus":{
+					"animationType": "pop-in",
+					"animationDuration": 300
+				}
+            }
+        }, {
+            "path": "pages/awards/awards",
+            "style": {
+                "navigationBarTitleText": "抽奖",
 				"app-plus":{
 					"animationType": "pop-in",
 					"animationDuration": 300

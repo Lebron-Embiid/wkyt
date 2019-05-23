@@ -14,6 +14,19 @@
 
 <style lang="scss">
 	.page_bg{background: #efeef3 !important;min-height: 100%;position: fixed;width: 100%;z-index: -1;left: 0;top: 0;}
+	.status_bar {  
+		height: var(--status-bar-height);  
+		width: 100%;  
+		background-color: #efeef3;  
+	}  
+	.top_view {  
+		height: var(--status-bar-height);  
+		width: 100%;  
+		position: fixed;  
+		background-color: #efeef3;  
+		top: 0;  
+		z-index: 999;  
+	}  
 	/*每个页面公共css */
 	/* uni-app默认全局使用flex布局。因为flex布局有利于跨更多平台，尤其是采用原生渲染的平台。如不了解flex布局，请参考http://www.w3.org/TR/css3-flexbox/。如不使用flex布局，请删除或注释掉本行。*/
 	body,
@@ -42,6 +55,34 @@
 		width: 100%;
 		min-height: 100%;
 		display: flex;
+	}
+	
+	uni-picker .uni-picker-item{
+		font-size: 28upx;
+	}
+	
+	.toNextPage{
+		padding: 0 60upx;
+		margin-top: 130upx;
+		button{
+			height: 85upx;
+			line-height: 85upx;
+			color: #fff;
+			font-size: 30upx;
+			background: #257cf2;
+			border-radius: 5upx;
+			&:after{
+				border: 0;
+			}
+		}
+	}
+	
+	.bor{
+		border-top: 1px solid #DFDFDF;
+		border-bottom: 1px solid #DFDFDF;
+	}
+	.mb20{
+		margin-bottom: 25upx;
 	}
 	
 	.content {

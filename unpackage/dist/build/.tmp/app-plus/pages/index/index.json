@@ -1,0 +1,7 @@
+{
+  "navigationStyle": "custom",
+  "navigationBarTitleText": "",
+  "animationType": "pop-in",
+  "animationDuration": 300,
+  "usingComponents": {}
+}

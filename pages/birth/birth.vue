@@ -1,5 +1,5 @@
 <template>
-	<view class="birth_box">
+	<view class="birth_view">
 		<view class="page_bg"></view>
 		<view class="birth_title">欢迎来到旺客-易推</view>
 		<view class="birth_info">完善信息，个性化你的内容</view>
@@ -18,13 +18,19 @@
 			</radio-group>
 		</view>
 		<view class="select_birth">
-			<view class="sb_till"><text>生日当天有优惠哦!</text></view>
+			<view class="sb_till"><text :class="[show == true?'active':'']">生日当天有优惠哦!</text></view>
 			<view class="sb_box">
-				<view class="sb_left">选择生日：<text>2019-03-14</text></view>
-				<view class="sb_right">仅自己可见<image src="../../static/img/three.png" mode="widthFix"></image></view>
+				<picker class="sb_left" @change="bindDateChange" mode="date" :value="date" :start="startDate" :end="endDate">
+					<view>选择生日：{{date}}</view>
+				</picker>
+				<view class="sb_right">
+					<picker mode="selector" :range="looks" @change="bindLook">
+						{{looks[idx]}}<image src="../../static/img/three.png" mode="widthFix"></image>
+					</picker>
+				</view>
 			</view>
 		</view>
-		<view class="toNextPage"><button type="primary">下一步</button></view>
+		<view class="toNextPage" @tap="toNext"><button type="primary">下一步</button></view>
 	</view>
 </template>
 
@@ -41,7 +47,19 @@
 					icon: '../../static/img/girl.png',
                     name: '女'
                 }],
-				current: 0
+				current: 0,
+				date: "",
+				show: false,
+				looks: ["仅自己可见","全部可见"],
+				idx: 0
+			}
+		},
+		computed: {
+			startDate() {
+				return this.getDate('start');
+			},
+			endDate() {
+				return this.getDate('end');
 			}
 		},
 		methods:{
@@ -53,6 +71,44 @@
 					}
 				}
 				console.log(this.current);
+			},
+			bindDateChange: function(e) {
+				this.date = e.target.value;
+				this.show = true;
+				console.log(this.date)
+			},
+			bindLook: function(e){
+				this.idx = e.target.value;
+			},
+			toNext: function(e){
+				if(this.date == ""){
+					uni.showToast({
+						title: "请填写生日！",
+						duration: 1000,
+						icon: 'none'
+					})
+					return;
+				}
+				uni.reLaunch({
+					url: "/pages/interest/interest",
+					animationType: 'pop-in',
+					animationDuration: 500
+				})
+			},
+			getDate(type) {
+				const date = new Date();
+				let year = date.getFullYear();
+				let month = date.getMonth() + 1;
+				let day = date.getDate();
+
+				if (type == 'start') {
+					year = year - 60;
+				} else if (type == 'end') {
+					year = year + 2;
+				}
+				month = month > 9 ? month : '0' + month;;
+				day = day > 9 ? day : '0' + day;
+				return `${year}-${month}-${day}`;
 			}
 		},
 		onLoad() {
@@ -62,9 +118,9 @@
 </script>
 
 <style scoped lang="scss">
-	.birth_box{
+	.birth_view{
 		width: 100%;
-		padding: 130upx 40upx 20upx;
+		padding: 50upx 40upx 20upx;
 		box-sizing: border-box;
 		.birth_title{
 			color: #000;
@@ -97,6 +153,7 @@
 					left: 50%;
 					top: 50%;
 					transform: translate(-50%,-50%);
+					opacity: 0;
 				}
 				.sex_img{
 					display: block;
@@ -133,6 +190,8 @@
 					color: #fff;
 					font-size: 22upx;
 					position: relative;
+					opacity: 0;
+					transition: opacity .5s linear;
 					&:after{
 						content: "";
 						width: 0;
@@ -142,6 +201,9 @@
 						position: absolute;
 						right: 20upx;
 						bottom: -25upx;
+					}
+					&.active{
+						opacity: 1;
 					}
 				}
 			}
@@ -156,9 +218,11 @@
 				justify-content: space-between;
 				align-items: center;
 				.sb_left{
-					text{
-						font-size: 24upx;
-					}
+					width: 60%;
+					font-size: 24upx;
+					display: flex;
+					justify-content: flex-start;
+					align-items: center;
 				}
 				.sb_right{
 					color: #9e9e9e;
@@ -169,21 +233,6 @@
 						height: 15upx !important;
 						margin-left: 20upx;
 					}
-				}
-			}
-		}
-		.toNextPage{
-			padding: 0 60upx;
-			margin-top: 130upx;
-			button{
-				height: 85upx;
-				line-height: 85upx;
-				color: #fff;
-				font-size: 30upx;
-				background: #257cf2;
-				border-radius: 5upx;
-				&:after{
-					border: 0;
 				}
 			}
 		}
