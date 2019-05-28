@@ -2,9 +2,8 @@
 	<view class="conbox">
 		<view class="container">
 			<!-- 背景 -->
-			<image src="../../static/img/bg.png" class="cont" mode=""></image>
-			<image src="../../static/img/caidai.png" class="caidai" mode=""></image>
-			<view class="header">
+			<image src="../../static/img/award_bg.jpg" class="cont" mode=""></image>
+			<!-- <view class="header">
 				<view class="header-title">
 					<view class="left">
 						次数： <text style="color: #E4431A;">{{chishu}}</text>
@@ -13,7 +12,7 @@
 						我的奖品 >
 					</view>
 				</view>
-			</view>
+			</view> -->
 			<view class="main">
 				<view class="canvas-container">
 	
@@ -41,16 +40,16 @@
 				</view>
 			</view>
 			<!-- 现金抽奖 -->
-			<view class="typecheckbox">
+			<!-- <view class="typecheckbox">
 				<view :class="mold==1?'left active':'left'" @click="choosetype(1)">
 					幸运抽奖
 				</view>
 				<view :class="mold==2?'left active':'left' " @click="choosetype(2)">
 					现金抽奖
 				</view>
-			</view>
+			</view> -->
 			<!-- 规则 -->
-			<view class="guize">
+			<!-- <view class="guize">
 				<view class="title">
 					规则说明
 				</view>
@@ -63,7 +62,7 @@
 				<view class="g_item">
 					3.用户获得的奖品，可在我的道具里查看
 				</view>
-			</view>
+			</view> -->
 			<!-- 我的奖品 -->
 			<view class="shadowbox" v-if="r_flg" @click="closeshadow">
 				<view class="myrewards" @click.stop="openshadow">
@@ -375,8 +374,11 @@
 	}
 
 	/* 转盘 */
+	.main{
+		overflow: hidden;
+	}
 	.canvas-container {
-		margin: 0 auto;
+		margin: 200upx auto 0;
 		position: relative;
 		width: 600upx;
 		height: 600upx;

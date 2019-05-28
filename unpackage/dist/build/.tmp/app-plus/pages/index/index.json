@@ -3,5 +3,8 @@
   "navigationBarTitleText": "",
   "animationType": "pop-in",
   "animationDuration": 300,
+  "titleNView": {
+    "type": "transparent"
+  },
   "usingComponents": {}
 }

@@ -1,18 +1,30 @@
 <template>
 	<view class="index_view">
 		<video id="myVideo" :src="url" :poster="poster_img" :loop="play" :show-fullscreen-btn="progress" :autoplay="autoplay" :show-center-play-btn="play" :enable-progress-gesture="progress" :controls="controls" direction="0">
-			<cover-view class="cv_title">20/16</cover-view>
+			<cover-view class="cv_title">{{title}}</cover-view>
 			<cover-view class="ob_avatar_border"></cover-view>
-			<cover-image class="ob_avatar" src="../../static/img/index_avatar.png"></cover-image>
-			<cover-image class="ob_item oc_img1" src="../../static/img/index_icon1.png"></cover-image><cover-view class="ob_txt ob_collect">566w</cover-view>
-			<cover-image class="ob_item oc_img2" src="../../static/img/index_icon2.png"></cover-image><cover-view class="ob_txt ob_love">13.8w</cover-view>
-			<cover-image class="ob_item oc_img3" src="../../static/img/index_icon3.png"></cover-image><cover-view class="ob_txt ob_comment">350</cover-view>
-			<cover-image class="ob_item oc_img4" src="../../static/img/index_icon4.png"></cover-image><cover-view class="ob_txt ob_share">1.2w</cover-view>
+			<cover-image class="ob_avatar" :src="avatar"></cover-image>
+			<cover-image class="ob_item oc_img1" src="../../static/img/index_icon1.png"></cover-image><cover-view class="ob_txt ob_collect">{{collect}}</cover-view>
+			<cover-image class="ob_item oc_img2" src="../../static/img/index_icon2.png"></cover-image><cover-view class="ob_txt ob_love">{{love}}</cover-view>
+			<cover-image class="ob_item oc_img3" src="../../static/img/index_icon3.png"></cover-image><cover-view class="ob_txt ob_comment">{{comment}}</cover-view>
+			<cover-image class="ob_item oc_img4" src="../../static/img/index_icon4.png"></cover-image><cover-view class="ob_txt ob_share">{{share}}</cover-view>
 			<cover-image class="cs_left" src="../../static/img/theme_icon.png"></cover-image>
-			<cover-view class="cs_right">新惠设计主流款...</cover-view>
+			<cover-view class="cs_right">{{type}}</cover-view>
 			<cover-view class="cover_word">
-				高品质制造平台,三体系认证,十环认证 平台,三体系认证十环认证平台,三体系认证,十环认证高品质制造
+				{{info}}
 			</cover-view>
+			
+			<!-- 弹出红包 -->
+			<cover-image src="../../static/img/red_bg1.jpg" class="red_img" :class="[red_show==true?'active':'']" @tap="open_red"></cover-image>
+			<cover-view class="red_title" :class="[red_show==true?'active':'']">{{red_title}}</cover-view>
+			<cover-view class="red_info" :class="[red_show==true?'active':'']">{{red_info}}</cover-view>
+			
+			<!-- 打开红包 -->
+			<cover-image src="../../static/img/red_bg.jpg" class="open_bg" :class="[money_show==true?'active':'']"></cover-image>
+			<cover-image src="../../static/img/close.png" class="close_icon" @tap="close_money" :class="[money_show==true?'active':'']"></cover-image>
+			<cover-view class="open_money" :class="[money_show==true?'active':'']">¥ {{money}}</cover-view>
+			<cover-view class="open_info" :class="[money_show==true?'active':'']">{{red_title}}{{red_info}}</cover-view>
+			<cover-view class="open_word" :class="[money_show==true?'active':'']">已存入钱包，可以直接消费</cover-view>
 		</video>
 	</view>
 </template>
@@ -31,18 +43,49 @@
 				progress: false,
 				play: true,
 				title: '20/16',
-				avatar: "static/img/index_avatar.png",
+				avatar: "../../static/img/index_avatar.png",
 				collect: "566w",
 				love: "13.8w",
 				comment: "350",
-				share: "1.2w"
+				share: "1.2w",
+				type: "新惠设计主流款...",
+				info: "高品质制造平台,三体系认证,十环认证 平台,三体系认证十环认证平台,三体系认证,十环认证高品质制造",
+				red_title: "奔驰汽车",
+				red_info: "领导时代，驾驭未来",
+				money: "8.98",
+				red_show: false,
+				money_show: false
 			}
 		},
 		methods:{
-			
+			// 打开红包
+			open_red(){
+				this.red_show = false;
+				this.money_show = true;
+			},
+			close_money(){
+				this.money_show = false;
+			}
 		},
 		onLoad() {
 			var that = this;
+			setTimeout(function(){
+				that.red_show = true;
+				// uni.showModal({
+				// 	title: "提示",
+				// 	content: "前往大转盘抽奖？",
+				// 	success: (res) => {
+				// 		if(res.confirm){
+				// 			uni.navigateTo({
+				// 				url: "/pages/awards/awards"
+				// 			})
+				// 		}
+				// 	},
+				// 	fail: (err) => {
+				// 		console.log(err)
+				// 	}
+				// })
+			},3000)
 			// #ifdef APP-PLUS
 			// 标题部分
 			// var title = new plus.nativeObj.View('title',
@@ -67,6 +110,15 @@
 			// 	console.log("未查找到id为'test'的View控件对象，请先创建");
 			// }
 			// #endif
+		},
+		onPullDownRefresh() {
+			console.log(1)
+		},
+		onReachBottom() {
+			console.log(2)			
+		},
+		onPageScroll(e) {
+			console.log(e)
 		}
 	}
 </script>
@@ -99,7 +151,7 @@
 			font-size: 36upx;
 			text-align: center;
 			position: absolute;
-			top: 80upx;
+			top: 50upx;
 		}
 		// .operate_box{
 		// 	position: absolute;
@@ -223,6 +275,72 @@
 				position: absolute;
 				left: 20upx;
 				bottom: 170upx;
+			}
+			.red_img,.open_bg{
+				position: absolute;
+				width: 431upx;
+				height: 532upx;
+				left: 50%;
+				top: 330upx;
+				transform: translateX(-50%);
+				border-radius: 10upx;
+				display: none;
+				&.active{
+					display: block;
+				}
+			}
+			.red_title,.red_info{
+				color: #fff;
+				font-size: 36upx;
+				width: 431upx;
+				position: absolute;
+				left: 50%;
+				transform: translateX(-50%);
+				top: 640upx;
+				text-align: center;
+				font-family: "黑体";
+				display: none;
+				&.active{
+					display: block;
+				}
+			}
+			.red_info{
+				font-size: 30upx;
+				top: 700upx;
+			}
+			.close_icon{
+				width: 26upx;
+				height: 26upx;
+				position: absolute;
+				top: 345upx;
+				right: 180upx;
+				display: none;
+				&.active{
+					display: block;
+				}
+			}
+			.open_money,.open_info,.open_word{
+				color: #fff;
+				font-size: 64upx;
+				position: absolute;
+				width: 431upx;
+				text-align: center;
+				left: 50%;
+				transform: translateX(-50%);
+				top: 440upx;
+				display: none;
+				&.active{
+					display: block;
+				}
+			}
+			.open_info{
+				font-size: 24upx;
+				top: 540upx;
+			}
+			.open_word{
+				color: #3d3d3d;
+				font-size: 24upx;
+				top: 700upx;
 			}
 		// }
 	// }

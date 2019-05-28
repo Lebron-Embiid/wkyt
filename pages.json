@@ -115,7 +115,7 @@
         }, {
             "path": "pages/awards/awards",
             "style": {
-                "navigationBarTitleText": "抽奖",
+                "navigationBarTitleText": "幸运大转盘",
 				"app-plus":{
 					"animationType": "pop-in",
 					"animationDuration": 300

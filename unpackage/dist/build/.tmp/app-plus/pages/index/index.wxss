@@ -1,15 +1,192 @@
-.a_video.data-v-1e0c4c9f {
-  position: fixed;
+@charset "UTF-8";
+page.data-v-5deb7dfd, page.data-v-5deb7dfd {
+  position: relative;
+}
+#myVideo.data-v-5deb7dfd {
   display: block;
   width: 100%;
-  height: 0px;
+  height: calc(100% - 28px);
+  position: absolute;
+  left: 0;
+  top: var(--status-bar-height);
 }
-.cover_video_view .cv_title.data-v-1e0c4c9f {
+.cv_title.data-v-5deb7dfd {
   display: block;
   width: 100%;
   color: #fff;
   font-size: 36rpx;
   text-align: center;
-  margin: 15rpx 0;
+  position: absolute;
+  top: 80rpx;
+}
+.ob_avatar_border.data-v-5deb7dfd {
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 50%;
+  background: #fff;
+  position: absolute;
+  right: 20rpx;
+  bottom: 720rpx;
+}
+.ob_avatar.data-v-5deb7dfd {
+  display: block;
+  width: 82rpx;
+  height: 82rpx;
+  position: absolute;
+  right: 24rpx;
+  bottom: 724rpx;
+}
+.ob_item.data-v-5deb7dfd {
+  display: block;
+  width: 50rpx;
+  height: 47rpx;
+  position: absolute;
+  right: 43rpx;
+}
+.oc_img1.data-v-5deb7dfd {
+  bottom: 640rpx;
+}
+.oc_img2.data-v-5deb7dfd {
+  bottom: 520rpx;
+}
+.oc_img3.data-v-5deb7dfd {
+  bottom: 400rpx;
+}
+.oc_img4.data-v-5deb7dfd {
+  bottom: 280rpx;
+}
+.ob_txt.data-v-5deb7dfd {
+  color: #fff;
+  font-size: 24rpx;
+  text-align: center;
+  position: absolute;
+  right: 23rpx;
+  width: 90rpx;
+  text-align: center;
+}
+.ob_collect.data-v-5deb7dfd {
+  bottom: 605rpx;
+}
+.ob_love.data-v-5deb7dfd {
+  bottom: 485rpx;
+}
+.ob_comment.data-v-5deb7dfd {
+  bottom: 365rpx;
+}
+.ob_share.data-v-5deb7dfd {
+  bottom: 245rpx;
+}
+.cs_left.data-v-5deb7dfd {
+  width: 34rpx;
+  height: 30rpx;
+  position: absolute;
+  left: 35rpx;
+  bottom: 297rpx;
+}
+.cs_right.data-v-5deb7dfd {
+  color: #fff;
+  width: 200rpx;
+  height: 58rpx;
+  line-height: 58rpx;
+  padding-left: 10rpx;
+  font-size: 22rpx;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+     text-overflow: ellipsis;
+  white-space: nowrap;
+  position: absolute;
+  left: 80rpx;
+  bottom: 280rpx;
+}
+.cover_word.data-v-5deb7dfd {
+  color: #fff;
+  font-size: 22rpx;
+  width: 65%;
+  height: 90rpx;
+  line-height: 30rpx;
+  color: #fff;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+     text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  position: absolute;
+  left: 20rpx;
+  bottom: 170rpx;
+}
+.red_img.data-v-5deb7dfd, .open_bg.data-v-5deb7dfd {
+  position: absolute;
+  width: 431rpx;
+  height: 532rpx;
+  left: 50%;
+  top: 330rpx;
+  -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+          transform: translateX(-50%);
+  border-radius: 10rpx;
+  display: none;
+}
+.red_img.active.data-v-5deb7dfd, .open_bg.active.data-v-5deb7dfd {
+    display: block;
+}
+.red_title.data-v-5deb7dfd, .red_info.data-v-5deb7dfd {
+  color: #fff;
+  font-size: 36rpx;
+  width: 431rpx;
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+          transform: translateX(-50%);
+  top: 640rpx;
+  text-align: center;
+  font-family: "\9ED1\4F53";
+  display: none;
+}
+.red_title.active.data-v-5deb7dfd, .red_info.active.data-v-5deb7dfd {
+    display: block;
+}
+.red_info.data-v-5deb7dfd {
+  font-size: 30rpx;
+  top: 700rpx;
+}
+.close_icon.data-v-5deb7dfd {
+  width: 26rpx;
+  height: 26rpx;
+  position: absolute;
+  top: 345rpx;
+  right: 180rpx;
+  display: none;
+}
+.close_icon.active.data-v-5deb7dfd {
+    display: block;
+}
+.open_money.data-v-5deb7dfd, .open_info.data-v-5deb7dfd, .open_word.data-v-5deb7dfd {
+  color: #fff;
+  font-size: 64rpx;
+  position: absolute;
+  width: 431rpx;
+  text-align: center;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+          transform: translateX(-50%);
+  top: 440rpx;
+  display: none;
+}
+.open_money.active.data-v-5deb7dfd, .open_info.active.data-v-5deb7dfd, .open_word.active.data-v-5deb7dfd {
+    display: block;
+}
+.open_info.data-v-5deb7dfd {
+  font-size: 24rpx;
+  top: 540rpx;
+}
+.open_word.data-v-5deb7dfd {
+  color: #3d3d3d;
+  font-size: 24rpx;
+  top: 700rpx;
 }
 
