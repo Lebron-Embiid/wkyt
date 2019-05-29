@@ -1,12 +1,13 @@
 <template>
 	<view class="index_view">
-		<video id="myVideo" :src="url" :poster="poster_img" :loop="play" :show-fullscreen-btn="progress" :autoplay="autoplay" :show-center-play-btn="play" :enable-progress-gesture="progress" :controls="controls" direction="0">
+		<video id="myVideo" :src="url" :poster="poster_img" :loop="play" :show-fullscreen-btn="progress" :autoplay="autoplay" :show-center-play-btn="play" :enable-progress-gesture="progress" :controls="controls" direction="0" 
+		 @touchstart='touchstart' @touchmove='touchmove' @touchend='touchend' @touchcancel='touchcancel' @timeupdate="timeupdate">
 			<cover-view class="cv_title">{{title}}</cover-view>
 			<cover-view class="ob_avatar_border"></cover-view>
 			<cover-image class="ob_avatar" :src="avatar"></cover-image>
 			<cover-image class="ob_item oc_img1" src="../../static/img/index_icon1.png"></cover-image><cover-view class="ob_txt ob_collect">{{collect}}</cover-view>
 			<cover-image class="ob_item oc_img2" src="../../static/img/index_icon2.png"></cover-image><cover-view class="ob_txt ob_love">{{love}}</cover-view>
-			<cover-image class="ob_item oc_img3" src="../../static/img/index_icon3.png"></cover-image><cover-view class="ob_txt ob_comment">{{comment}}</cover-view>
+			<cover-image class="ob_item oc_img3" @tap="toComment" src="../../static/img/index_icon3.png"></cover-image><cover-view @tap="toComment" class="ob_txt ob_comment">{{comment}}</cover-view>
 			<cover-image class="ob_item oc_img4" src="../../static/img/index_icon4.png"></cover-image><cover-view class="ob_txt ob_share">{{share}}</cover-view>
 			<cover-image class="cs_left" src="../../static/img/theme_icon.png"></cover-image>
 			<cover-view class="cs_right">{{type}}</cover-view>
@@ -15,12 +16,12 @@
 			</cover-view>
 			
 			<!-- 弹出红包 -->
-			<cover-image src="../../static/img/red_bg1.jpg" class="red_img" :class="[red_show==true?'active':'']" @tap="open_red"></cover-image>
+			<cover-image src="../../static/img/red_bg1.png" class="red_img" :class="[red_show==true?'active':'']" @tap="open_red"></cover-image>
 			<cover-view class="red_title" :class="[red_show==true?'active':'']">{{red_title}}</cover-view>
 			<cover-view class="red_info" :class="[red_show==true?'active':'']">{{red_info}}</cover-view>
 			
 			<!-- 打开红包 -->
-			<cover-image src="../../static/img/red_bg.jpg" class="open_bg" :class="[money_show==true?'active':'']"></cover-image>
+			<cover-image src="../../static/img/red_bg.png" class="open_bg" :class="[money_show==true?'active':'']"></cover-image>
 			<cover-image src="../../static/img/close.png" class="close_icon" @tap="close_money" :class="[money_show==true?'active':'']"></cover-image>
 			<cover-view class="open_money" :class="[money_show==true?'active':'']">¥ {{money}}</cover-view>
 			<cover-view class="open_info" :class="[money_show==true?'active':'']">{{red_title}}{{red_info}}</cover-view>
@@ -33,6 +34,19 @@
 	// #ifdef APP-PLUS  
 	// var currentWebview = plus.webview.currentWebview();
 	// #endif  
+	var start;
+	// 获取第一个应用
+	function getRecommendList(opt) {
+	  console.log("getRecommendList...")
+	  uni.request({
+	    url: '',
+	    data: opt.data || {
+	      page: 1,
+	      rows: 5
+	    },
+	    success: opt.success
+	  })
+	}
 	export default{
 		data(){
 			return{
@@ -54,7 +68,15 @@
 				red_info: "领导时代，驾驭未来",
 				money: "8.98",
 				red_show: false,
-				money_show: false
+				money_show: false,
+				
+				percent: 0,
+				subject: [],
+				current: 0,
+				pages: 0,
+				page: 1,
+				icons:'',
+				subjectList: [],
 			}
 		},
 		methods:{
@@ -65,10 +87,118 @@
 			},
 			close_money(){
 				this.money_show = false;
-			}
+			},
+			toComment(){
+				uni.navigateTo({
+					url: "/pages/comment/comment"
+				})
+			},
+			// 下面主要模仿滑动事件
+			touchstart: function (e) {
+			  start = e.changedTouches[0];
+			},
+			
+			touchmove: function (e) {
+			},
+			
+			touchend: function (e) {
+			  this.getDirect(start, e.changedTouches[0]);
+			},
+			
+			touchcancel: function (e) {
+			  this.getDirect(start, e.changedTouches[0]);
+			},
+			
+			// 计算滑动方向
+			getDirect(start, end) {
+			  var X = end.pageX - start.pageX,
+			    Y = end.pageY - start.pageY;
+			  if (Math.abs(X) > Math.abs(Y) && X > 0) {
+			    console.log("right");
+			  }
+			  else if (Math.abs(X) > Math.abs(Y) && X < 0) {
+			    console.log("left");
+			  }
+			  else if (Math.abs(Y) > Math.abs(X) && Y > 0) {
+			    console.log("bottom");
+				this.pre();
+			  }
+			  else if (Math.abs(Y) > Math.abs(X) && Y < 0) {
+			    console.log("top");
+				this.next()
+			  }
+			},
+			loadData: function (page, success) {
+			  var that = this;
+			  that.page = page;
+			  getRecommendList({
+			    data: {
+			      page: page,
+			      rows: 5,
+			      type: 'video'
+			    },
+			    success: function (res) {
+			      var list = res.content;
+			      if (list) {
+			        var listData = [];
+			        for (var i = 0; i < that.subjectList.length; i++) {
+			          listData.push(that.subjectList[i])
+			        }
+			        for (var i = 0; i < list.length; i++) {
+			          listData.push(list[i])
+			        }
+					  that.count = res.count,
+					  that.page = page,
+					  that.pages = res.pages,
+					  that.subjectList = listData
+			        if (success) {
+			          success();
+			        }
+			      }
+			    }
+			  })
+			},
+			changeSubject: function (current) {
+			  var that = this;
+			  if (current < 0) {
+			    current = 0;
+			    uni.showToast({
+			      title: '请往上滑',
+			      duration: 2000,
+			      icon: 'none'
+			    })
+			  }
+			  current = current || 0;
+			  var list = that.subjectList;
+			  if (list.length <= current) {
+			    return;
+			  }
+			  // 自动加载
+			  var diff = list.length - current;
+			  if (diff <= 5) {
+			    that.loadData(that.page + 1);
+			  }
+			},
+			// 视频播放时间更新
+			timeupdate: function (e) {
+			  var val = e.detail.currentTime;
+			  var max = e.detail.duration;
+			  var percent = Math.round(val / max * 10000) / 100;
+			  this.percent = percent;
+			},
+			// 播放上一个抖音
+			pre: function () {
+			  this.changeSubject(this.current - 1);
+			},
+			
+			// 播放下一个抖音
+			next: function () {
+			  this.changeSubject(this.current + 1);
+			},
 		},
 		onLoad() {
 			var that = this;
+			that.loadData(1, this.changeSubject);
 			setTimeout(function(){
 				that.red_show = true;
 				// uni.showModal({
@@ -85,7 +215,7 @@
 				// 		console.log(err)
 				// 	}
 				// })
-			},3000)
+			},5000)
 			// #ifdef APP-PLUS
 			// 标题部分
 			// var title = new plus.nativeObj.View('title',

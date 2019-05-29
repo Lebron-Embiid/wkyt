@@ -46,7 +46,13 @@
             "style": {
 				"navigationStyle": "custom",
                 "navigationBarTitleText": "",
+				"enablePullDownRefresh": true,
 				"app-plus":{
+					"pullToRefresh": {
+						"support": true,
+						"color": "#257CF2",
+						"style": "circle"
+					},
 					"animationType": "pop-in",
 					"animationDuration": 300
 				}
@@ -116,6 +122,15 @@
             "path": "pages/awards/awards",
             "style": {
                 "navigationBarTitleText": "幸运大转盘",
+				"app-plus":{
+					"animationType": "pop-in",
+					"animationDuration": 300
+				}
+            }
+        }, {
+            "path": "pages/comment/comment",
+            "style": {
+                "navigationBarTitleText": "评论",
 				"app-plus":{
 					"animationType": "pop-in",
 					"animationDuration": 300
