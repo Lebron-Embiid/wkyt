@@ -9,6 +9,7 @@
 			<cover-image class="ob_item oc_img2" src="../../static/img/index_icon2.png"></cover-image><cover-view class="ob_txt ob_love">{{love}}</cover-view>
 			<cover-image class="ob_item oc_img3" @tap="toComment" src="../../static/img/index_icon3.png"></cover-image><cover-view @tap="toComment" class="ob_txt ob_comment">{{comment}}</cover-view>
 			<cover-image class="ob_item oc_img4" src="../../static/img/index_icon4.png"></cover-image><cover-view class="ob_txt ob_share">{{share}}</cover-view>
+			<cover-view class="cs_left_bg"></cover-view>
 			<cover-image class="cs_left" src="../../static/img/theme_icon.png"></cover-image>
 			<cover-view class="cs_right">{{type}}</cover-view>
 			<cover-view class="cover_word">
@@ -51,6 +52,7 @@
 		data(){
 			return{
 				url: "http://vd.yinyuetai.com/hc.yinyuetai.com/uploads/videos/common/C55C01649BE431367709E70897C5D6F2.mp4",
+				// url: "",
 				poster_img: "../../static/img/poster.jpg",
 				controls: false,
 				autoplay: true,
@@ -373,6 +375,16 @@
 					// 	height: 30upx;
 					// }
 				}
+				.cs_left_bg{
+					background: rgba(0,0,0,.5);
+					border-top-left-radius: 10upx;
+					border-bottom-left-radius: 10upx;
+					width: 60upx;
+					height: 58upx;
+					position: absolute;
+					left: 20upx;
+					bottom: 280upx;
+				}
 				.cs_right{
 					color: #fff;
 					width: 200upx;
@@ -386,6 +398,9 @@
 					position: absolute;
 					left: 80upx;
 					bottom: 280upx;
+					background: rgba(0,0,0,.13);
+					border-top-right-radius: 10upx;
+					border-bottom-right-radius: 10upx;
 				}
 			// }
 			.cover_word{

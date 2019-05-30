@@ -54,7 +54,10 @@
 						"style": "circle"
 					},
 					"animationType": "pop-in",
-					"animationDuration": 300
+					"animationDuration": 300,
+					"titleNView": {
+                        "type": "transparent"//透明渐变导航栏
+                    }
 				}
             }
         },{
