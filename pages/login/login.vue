@@ -122,6 +122,41 @@
                     account: this.account,
                     password: this.password
                 };
+				uni.request({
+				    url: that.$api+'passport/mobile-login',
+				    data: {
+						contact_way:this.phoneno,
+						password:this.password
+					},
+					method: 'POST',
+					dataType:'json',
+					header: {
+						'content-type': 'application/x-www-form-urlencoded'
+					},
+				    success: (res) => {
+						if(res.data.code!=1){
+							uni.showToast({title:res.data.data.msg,icon:'none'});
+						}else{
+				
+							uni.clearStorageSync(); 
+							uni.setStorageSync('access_token',res.data.data.access_token);
+							uni.setStorageSync('level',res.data.data.level);
+							uni.showToast({title:res.data.data.msg,icon:'none',duration:1500});
+							that.$access_token = uni.getStorageSync('access_token');
+							that.$level = uni.getStorageSync('level');
+							console.log(that.$access_token)
+							console.log(that.$level)
+							setTimeout(function(){
+								uni.reLaunch({
+									url: "/pages/index/index"
+								})
+							},1500)
+						}
+				    },
+					fail: () => {
+						uni.showToast({title:res.data.msg,icon:'none'});
+					}
+				});
 				uni.reLaunch({
 					url: "/pages/birth/birth"
 				})

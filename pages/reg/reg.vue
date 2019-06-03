@@ -14,7 +14,7 @@
 				<view class="yzm" :class="{ yzms: second>0 }" @tap="getcode">{{yanzhengma}}</view>
             </view>
             <view class="input-row">
-				<image src="../../static/img/login_icon3.png" mode="widthFix"></image>
+				<image src="../../static/img/login_icon2.png" mode="widthFix"></image>
                 <m-input class="m-input" type="password" displayable v-model="password" placeholder="请输入密码"></m-input>
             </view>
         </view>

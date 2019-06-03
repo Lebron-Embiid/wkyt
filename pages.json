@@ -74,6 +74,7 @@
         }, {
             "path": "pages/pwd/pwd",
             "style": {
+				"navigationStyle": "custom",
                 "navigationBarTitleText": "找回密码"
             }
         }, {

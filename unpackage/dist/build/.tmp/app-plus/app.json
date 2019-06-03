@@ -13,7 +13,8 @@
     "pages/interest/interest",
     "pages/my_collect/my_collect",
     "pages/business_info/business_info",
-    "pages/awards/awards"
+    "pages/awards/awards",
+    "pages/comment/comment"
   ],
   "subPackages": [],
   "window": {

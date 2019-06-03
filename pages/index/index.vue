@@ -218,36 +218,12 @@
 				// 	}
 				// })
 			},5000)
-			// #ifdef APP-PLUS
-			// 标题部分
-			// var title = new plus.nativeObj.View('title',
-			// {top:'30px',left:'0px',height: '44px',width:'100%'});
-			// title.draw([
-			// 	{tag:'font',class:'cv_title',text: that.title,textStyles:{size:'16px',color:'#fff'}}
-			// ])
-			// // 右侧头像部分
-			// var avatar = new plus.nativeObj.View('avatar',
-			// {top:'200px',right:'0px',height: '600px',width:'100px'});
-			// avatar.draw([
-			// 	{tag:'img',src: that.avatar,position:{width:'50px',height:'47px'}},
-			// 	{tag:'font',text: that.collect,textStyles:{size:'12px',color:'#fff'}}
-			// ])
-			// 
-			// title.show();
-			// avatar.show();
-			// 
-			// if(title){
-			// 	console.log("查找到id为'test'的View控件对象");
-			// }else{
-			// 	console.log("未查找到id为'test'的View控件对象，请先创建");
-			// }
-			// #endif
 		},
 		onPullDownRefresh() {
-			console.log(1)
+			
 		},
 		onReachBottom() {
-			console.log(2)			
+			
 		},
 		onPageScroll(e) {
 			console.log(e)
