@@ -52,7 +52,7 @@
     "distribute": {
       "icons": {
         "ios": {
-          "appstore": "static/img/logo.png",
+          "appstore": "unpackage/res/icons/1024x1024.png",
           "ipad": {
             "app": "unpackage/res/icons/76x76.png",
             "app@2x": "unpackage/res/icons/152x152.png",
@@ -124,8 +124,9 @@
       }
     },
     "uni-app": {
-      "compilerVersion": "1.9.9",
-      "control": "v8"
+      "compilerVersion": "2.0.1",
+      "control": "v8",
+      "nvueCompiler": "weex"
     },
     "secondwebview": {
       "id": "1",

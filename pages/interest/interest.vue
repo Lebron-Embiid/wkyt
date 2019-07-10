@@ -6,12 +6,12 @@
 		<view class="interest_box">
 			<view class="interest_item" @tap="selectInterest(index)" v-for="(item,index) in interest_list" :key="index">
 				<view class="in_img">
-					<image :src="item.photo" class="in_photo" mode="widthFix"></image>
+					<image :src="item.img" class="in_photo" mode="widthFix"></image>
 					<block v-if="item.select == 1">
 						<image src="../../static/img/select.png" class="in_select" mode="widthFix"></image>
 					</block>
 				</view>
-				<view class="in_title">{{item.title}}</view>
+				<view class="in_title">{{item.name}}</view>
 			</view>
 		</view>
 		<view class="toNextPage" @tap="toNext"><button type="primary">至少关注3个({{num}}/3)</button></view>
@@ -19,83 +19,18 @@
 </template>
 
 <script>
+	import api from '../../api/api'
 	export default{
 		data(){
 			return{
 				num: 0,
 				interest_list: [
-					{
-						id: 1,
-						photo: "../../static/img/interest_img1.png",
-						title: "时尚穿搭",
-						select: 0
-					},
-					{
-						id: 2,
-						photo: "../../static/img/interest_img2.png",
-						title: "发型",
-						select: 0
-					},
-					{
-						id: 3,
-						photo: "../../static/img/interest_img3.png",
-						title: "化妆品",
-						select: 0
-					},
-					{
-						id: 4,
-						photo: "../../static/img/interest_img4.png",
-						title: "数码",
-						select: 0
-					},
-					{
-						id: 5,
-						photo: "../../static/img/interest_img5.png",
-						title: "音乐器材",
-						select: 0
-					},
-					{
-						id: 6,
-						photo: "../../static/img/interest_img6.png",
-						title: "书籍",
-						select: 0
-					},
-					{
-						id: 7,
-						photo: "../../static/img/interest_img7.png",
-						title: "百货",
-						select: 0
-					},
-					{
-						id: 8,
-						photo: "../../static/img/interest_img8.png",
-						title: "汽车",
-						select: 0
-					},
-					{
-						id: 9,
-						photo: "../../static/img/interest_img9.png",
-						title: "箱包",
-						select: 0
-					},
-					{
-						id: 10,
-						photo: "../../static/img/interest_img10.png",
-						title: "鞋靴",
-						select: 0
-					},
-					{
-						id: 11,
-						photo: "../../static/img/interest_img11.png",
-						title: "生鲜",
-						select: 0
-					},
-					{
-						id: 12,
-						photo: "../../static/img/interest_img12.png",
-						title: "美食",
-						select: 0
-					}
+// 					{
+// 						id: 1,
+// 						img: "../../static/img/interest_img1.png",
+// 						name: "时尚穿搭",
+// 						select: 0
+// 					}
 				]
 			}
 		},
@@ -126,6 +61,22 @@
 			},
 		},
 		onLoad() {
+			var that = this;
+			 api.get('index.php?act=video&op=video_tag', {}).then(datas => {  
+				  // that.interest_list = datas.list;
+				  var interest = [];
+				  for(let i in datas.list){
+					  var item = datas.list[i];
+					   interest.push({
+						  id: item.id,
+						  img: item.img,
+						  name: item.name,
+						  select: 0
+					  })
+				  }
+				 that.interest_list = interest;
+				 console.log(that.interest_list)
+			 })
 			
 		}
 	}

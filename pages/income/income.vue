@@ -9,10 +9,10 @@
 					</view>
 					<view class="it_right">
 						<view>1.当月广告基础收益为0.08元一条，随市场变化及商家收益升涨；</view>
-						<view>2.用户观看广告上限后可每天在商品界面收取20活力值；</view>
+						<view>2.用户观看广告上限后可每天在商品界面收取1活力值；</view>
 					</view>
 				</view>
-				<view class="ic_bottom">累计收入(元){{income}} <navigator url="">马上去赚钱 &gt;</navigator></view>
+				<!-- <view class="ic_bottom">累计收入(元){{income}} <navigator url="">马上去赚钱 &gt;</navigator></view> -->
 			</view>
 		</view>
 		<view class="income_content">
@@ -34,7 +34,7 @@
 			</view>
 			<!-- 提现 -->
 			<view class="income_list" v-show="currentTab == 1">
-				<view class="income_item" v-for="(item,index) in income_list" :key="index">
+				<view class="income_item" v-for="(item,index) in withdraw_list" :key="index">
 					<view class="i_left">
 						<image src="../../static/img/clock.png" mode=""></image>
 						<view class="i_word">
@@ -50,58 +50,117 @@
 </template>
 
 <script>
+	import api from '../../api/api';
+	import utils from '../../utils/utils';
 	export default{
 		data(){
 			return{
-				money: "268.09",
-				income: "333.09",
-				navbar:[{name:"收益记录"},{name:"提现"}],
+				money: "0.00",
+				income: "0.00",
+				total_page_count:1,
+				cash_count:1,
+				navbar:[{name:"收益记录"},{name:'提现'}],
 				currentTab:0,
-				income_list:[
-					{
-						time: "2019-03-17",
-						info: "查看xxx的广告",
-						num: "+2.08"
-					},{
-						time: "2019-03-17",
-						info: "查看xxx的广告",
-						num: "+2.08"
-					},{
-						time: "2019-03-17",
-						info: "查看xxx的广告",
-						num: "+2.08"
-					},{
-						time: "2019-03-17",
-						info: "查看xxx的广告",
-						num: "+2.08"
-					},{
-						time: "2019-03-17",
-						info: "查看xxx的广告",
-						num: "+2.08"
-					},{
-						time: "2019-03-17",
-						info: "查看xxx的广告",
-						num: "+2.08"
-					},{
-						time: "2019-03-17",
-						info: "查看xxx的广告",
-						num: "+2.08"
-					},{
-						time: "2019-03-17",
-						info: "查看xxx的广告",
-						num: "+2.08"
-					}
-				]
+				income_list:[],
+				withdraw_list:[],
+				income_page_number:1,
+				withdraw_page_number:1
 			}
 		},
 		methods:{
 			navbarTap: function(e){
-				this.currentTab = e;
+				this.currentTab = e;	
+				this.income_page_number = 1;
+				this.withdraw_page_number = 1;
+				if(this.currentTab == 0){
+					//获取收益列表
+					this.getRewardList()
+				}else{
+					//获取提现列表
+					this.getWithdrawList()					
+				}
+			},
+			getRewardList(){			
+				console.log(this.income_page_number)
+				//TODO:分页处理
+				api.get('index.php?act=predeposit&op=pd_list', {'curpage': this.income_page_number}).then(datas => {
+					this.money = datas.available_predeposit
+					this.income = datas.total_reward_amount
+					this.total_page_count = datas.page.total_page_count
+					for (let key in datas.list) {
+						// console.log(datas.list[key])
+						this.income_list.push({
+							time: utils.formatTime(datas.list[key].lg_add_time, 'Y-m-d'),
+							info: datas.list[key].lg_desc,
+							num: datas.list[key].lg_av_amount
+						})
+					}
+				})
+			},
+			getWithdrawList(){				 
+				//TODO:分页处理
+				api.get('index.php?act=predeposit&op=pd_cash_list', {'curpage': this.withdraw_page_number}).then(datas => {
+					this.cash_count = datas.cash_count 
+					for (let key in datas.cash_list) {
+						// console.log(datas.cash_list[key])
+						this.withdraw_list.push({
+							time: utils.formatTime(datas.cash_list[key].pdc_add_time, 'Y-m-d'),
+							info: datas.cash_list[key].info,
+							num: datas.cash_list[key].pdc_amount
+						})
+					}
+				})
 			}
 		},
 		onLoad() {
-			
-		}
+			//获取收益列表
+			this.getRewardList()
+			//获取提现列表
+			// this.getWithdrawList()
+		},		
+		onReachBottom() { 	
+			var that = this;
+			if(that.currentTab == 0){
+				var page = that.income_page_number + 1
+				if(that.total_page_count < page){							
+					 uni.showToast({
+					   title: '暂无更多加载',
+					   duration: 2000,
+					   icon: 'none'
+					 })
+					 return false;
+				}
+				uni.showLoading({
+					title: "加载中"
+				})
+				 that.income_page_number = that.income_page_number + 1
+				setTimeout(function () {
+					   that.getRewardList(); 
+					uni.hideLoading();
+				}, 1000);
+			}else{
+				var page_count = that.withdraw_page_number + 1
+				console.log(that.cash_count)
+				console.log(page_count)
+				if(that.cash_count < page_count){							
+					 uni.showToast({
+					   title: '暂无更多加载',
+					   duration: 2000,
+					   icon: 'none'
+					 })
+					 return false;
+				} 
+				uni.showLoading({
+					title: "加载中"
+				})
+				 that.withdraw_page_number = that.withdraw_page_number + 1
+				setTimeout(function () {
+					that.getWithdrawList(); 
+					uni.hideLoading();
+				}, 1000);
+			}
+		},
+
 	}
 </script>
 

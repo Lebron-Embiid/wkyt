@@ -1,26 +1,26 @@
 <template>
 	<view class="index_view">
-		<video id="myVideo" :src="url" :poster="poster_img" :loop="play" :show-fullscreen-btn="progress" :autoplay="autoplay" :show-center-play-btn="play" :enable-progress-gesture="progress" :controls="controls" direction="0" 
+		<video id="myVideo" :src="url" :poster="poster_img" :loop="play" :show-fullscreen-btn="progress" :autoplay="autoplay" :show-center-play-btn="play" :enable-progress-gesture="progress" :controls="controls" direction="0"
 		 @touchstart='touchstart' @touchmove='touchmove' @touchend='touchend' @touchcancel='touchcancel' @timeupdate="timeupdate">
 			<cover-view class="cv_title">{{title}}</cover-view>
 			<cover-view class="ob_avatar_border"></cover-view>
-			<cover-image class="ob_avatar" :src="avatar"></cover-image>
-			<cover-image class="ob_item oc_img1" src="../../static/img/index_icon1.png"></cover-image><cover-view class="ob_txt ob_collect">{{collect}}</cover-view>
-			<cover-image class="ob_item oc_img2" src="../../static/img/index_icon2.png"></cover-image><cover-view class="ob_txt ob_love">{{love}}</cover-view>
+			<cover-image class="ob_avatar" :src="avatar" @tap="toAvatar" style="border-radius: 50%;"></cover-image>
+			<cover-image class="ob_item oc_img1" @tap="toCollect" src="../../static/img/index_icon1.png"></cover-image><cover-view @tap="toCollect" class="ob_txt ob_collect">{{collect}}</cover-view>
+			<cover-image class="ob_item oc_img2" @tap="toLove" src="../../static/img/index_icon2.png"></cover-image><cover-view @tap="toLove" class="ob_txt ob_love">{{love}}</cover-view>
 			<cover-image class="ob_item oc_img3" @tap="toComment" src="../../static/img/index_icon3.png"></cover-image><cover-view @tap="toComment" class="ob_txt ob_comment">{{comment}}</cover-view>
-			<cover-image class="ob_item oc_img4" src="../../static/img/index_icon4.png"></cover-image><cover-view class="ob_txt ob_share">{{share}}</cover-view>
+			<cover-image class="ob_item oc_img4" @tap="toShare" src="../../static/img/index_icon4.png"></cover-image><cover-view  @tap="toShare" class="ob_txt ob_share">{{share}}</cover-view>
 			<cover-view class="cs_left_bg"></cover-view>
-			<cover-image class="cs_left" src="../../static/img/theme_icon.png"></cover-image>
+			<cover-image class="cs_left" :src="tag_img"></cover-image>
 			<cover-view class="cs_right">{{type}}</cover-view>
 			<cover-view class="cover_word">
 				{{info}}
 			</cover-view>
-			
+
 			<!-- 弹出红包 -->
 			<cover-image src="../../static/img/red_bg1.png" class="red_img" :class="[red_show==true?'active':'']" @tap="open_red"></cover-image>
 			<cover-view class="red_title" :class="[red_show==true?'active':'']">{{red_title}}</cover-view>
 			<cover-view class="red_info" :class="[red_show==true?'active':'']">{{red_info}}</cover-view>
-			
+
 			<!-- 打开红包 -->
 			<cover-image src="../../static/img/red_bg.png" class="open_bg" :class="[money_show==true?'active':'']"></cover-image>
 			<cover-image src="../../static/img/close.png" class="close_icon" @tap="close_money" :class="[money_show==true?'active':'']"></cover-image>
@@ -32,46 +32,39 @@
 </template>
 
 <script>
-	// #ifdef APP-PLUS  
+	const videoContext = uni.createVideoContext('myVideo')
+	import api from '../../api/api'
+	// #ifdef APP-PLUS
 	// var currentWebview = plus.webview.currentWebview();
-	// #endif  
+	// #endif
 	var start;
-	// 获取第一个应用
-	function getRecommendList(opt) {
-	  console.log("getRecommendList...")
-	  uni.request({
-	    url: '',
-	    data: opt.data || {
-	      page: 1,
-	      rows: 5
-	    },
-	    success: opt.success
-	  })
-	}
 	export default{
 		data(){
 			return{
-				url: "http://vd.yinyuetai.com/hc.yinyuetai.com/uploads/videos/common/C55C01649BE431367709E70897C5D6F2.mp4",
-				// url: "",
+				video_id: 0,
+				url: "",
+				tag_img: "",
 				poster_img: "../../static/img/poster.jpg",
 				controls: false,
 				autoplay: true,
-				progress: false,
+				progress: false, 
+				member_watch:100,
+				member_video:100,
 				play: true,
 				title: '20/16',
 				avatar: "../../static/img/index_avatar.png",
-				collect: "566w",
-				love: "13.8w",
-				comment: "350",
-				share: "1.2w",
+				collect: "0",
+				love: "0",
+				comment: "0",
+				share: "0",
 				type: "新惠设计主流款...",
 				info: "高品质制造平台,三体系认证,十环认证 平台,三体系认证十环认证平台,三体系认证,十环认证高品质制造",
 				red_title: "奔驰汽车",
 				red_info: "领导时代，驾驭未来",
-				money: "8.98",
+				money: 0,
 				red_show: false,
 				money_show: false,
-				
+
 				percent: 0,
 				subject: [],
 				current: 0,
@@ -84,33 +77,83 @@
 		methods:{
 			// 打开红包
 			open_red(){
-				this.red_show = false;
-				this.money_show = true;
+				api.post('index.php?act=video&op=reward', {
+					'video_id': this.video_id
+				}).then(datas => {
+					this.money = datas.amount;
+					this.red_title = '';
+					this.red_info = datas.message;
+
+					//显示红包内容
+					this.red_show = false;
+					this.money_show = true;
+				})
 			},
 			close_money(){
 				this.money_show = false;
-			},
-			toComment(){
+			}, 
+			//商家信息
+			toAvatar(){
 				uni.navigateTo({
-					url: "/pages/comment/comment"
+					url: "/pages/business_info/business_info?video_id="+this.video_id
+				})
+			},
+			//收藏
+			toCollect(){
+				 api.get('index.php?act=video&op=videoCollection', {
+				 	'video_id': this.video_id
+				 }).then(datas => {
+				      if(datas.code == 0){
+						  this.collect = datas.v_star_count
+					  }
+				 })
+			},
+			//点赞
+			toLove(){
+				 api.get('index.php?act=video&op=fabulous', {
+				 	'video_id': this.video_id
+				 }).then(datas => {
+				      if(datas.code == 0){
+						  this.love = datas.v_like_count
+					  }
+				  
+				 })
+			},
+			//转发
+			toShare(){
+				 api.get('index.php?act=video&op=forward', {
+				 	'video_id': this.video_id
+				 }).then(datas => {
+				      if(datas.code == 0){
+						  this.share = datas.v_forward_count
+					  }
+				 })
+			},
+			//评论
+			toComment(){
+				console.log(this.comment)
+				console.log(this.video_id)
+				
+				uni.navigateTo({
+					url: "/pages/comment/comment?comment_count="+this.comment+"&video_id="+this.video_id
 				})
 			},
 			// 下面主要模仿滑动事件
 			touchstart: function (e) {
 			  start = e.changedTouches[0];
 			},
-			
+
 			touchmove: function (e) {
 			},
-			
+
 			touchend: function (e) {
 			  this.getDirect(start, e.changedTouches[0]);
 			},
-			
+
 			touchcancel: function (e) {
 			  this.getDirect(start, e.changedTouches[0]);
 			},
-			
+
 			// 计算滑动方向
 			getDirect(start, end) {
 			  var X = end.pageX - start.pageX,
@@ -133,32 +176,21 @@
 			loadData: function (page, success) {
 			  var that = this;
 			  that.page = page;
-			  getRecommendList({
-			    data: {
-			      page: page,
-			      rows: 5,
-			      type: 'video'
-			    },
-			    success: function (res) {
-			      var list = res.content;
-			      if (list) {
-			        var listData = [];
-			        for (var i = 0; i < that.subjectList.length; i++) {
-			          listData.push(that.subjectList[i])
-			        }
-			        for (var i = 0; i < list.length; i++) {
-			          listData.push(list[i])
-			        }
-					  that.count = res.count,
-					  that.page = page,
-					  that.pages = res.pages,
-					  that.subjectList = listData
-			        if (success) {
-			          success();
-			        }
-			      }
-			    }
-			  })
+			    //获取视频
+				api.post('index.php?act=video&op=getOne', {}).then(datas => {
+					that.video_id = datas.v_id;
+					that.url = datas.url;
+					that.avatar = datas.store_logo;
+					that.tag_img = datas.tag_img;
+					that.type = datas.v_title;
+					that.info = datas.v_desc;
+					that.collect = datas.v_star_count;
+					that.love = datas.v_like_count;
+					that.comment = datas.v_comment_count;
+					that.share = datas.v_forward_count;
+					that.title = datas.member_watch+'/'+datas.member_video;
+					 
+				})
 			},
 			changeSubject: function (current) {
 			  var that = this;
@@ -176,10 +208,10 @@
 			    return;
 			  }
 			  // 自动加载
-			  var diff = list.length - current;
-			  if (diff <= 5) {
-			    that.loadData(that.page + 1);
-			  }
+			  // var diff = list.length - current;
+			  // if (diff <= 5) {
+				that.loadData(that.page + 1);
+			  // }
 			},
 			// 视频播放时间更新
 			timeupdate: function (e) {
@@ -192,38 +224,46 @@
 			pre: function () {
 			  this.changeSubject(this.current - 1);
 			},
-			
+
 			// 播放下一个抖音
 			next: function () {
 			  this.changeSubject(this.current + 1);
 			},
 		},
 		onLoad() {
+			//TODO:检查登录
 			var that = this;
 			that.loadData(1, this.changeSubject);
+			//显示红包
 			setTimeout(function(){
 				that.red_show = true;
-				// uni.showModal({
-				// 	title: "提示",
-				// 	content: "前往大转盘抽奖？",
-				// 	success: (res) => {
-				// 		if(res.confirm){
-				// 			uni.navigateTo({
-				// 				url: "/pages/awards/awards"
-				// 			})
-				// 		}
-				// 	},
-				// 	fail: (err) => {
-				// 		console.log(err)
-				// 	}
-				// })
+// 				uni.showModal({
+// 					title: "提示",
+// 					content: "前往大转盘抽奖？",
+// 					success: (res) => {
+// 						if(res.confirm){
+// 							uni.navigateTo({
+// 								url: "/pages/awards/awards"
+// 							})
+// 						}
+// 					},
+// 					fail: (err) => {
+// 						console.log(err)
+// 					}
+// 				})
 			},5000)
 		},
+		onShow() {
+			videoContext.play();
+		},
+		onHide() {
+			videoContext.pause();
+		},
 		onPullDownRefresh() {
-			
+
 		},
 		onReachBottom() {
-			
+
 		},
 		onPageScroll(e) {
 			console.log(e)
@@ -243,6 +283,7 @@
 		left: 0;
 		top: var(--status-bar-height);
 	}
+	
 	// .cover_video_view{
 	// 	position: absolute;
 	// 	width: 100%;
@@ -462,7 +503,7 @@
 				color: #3d3d3d;
 				font-size: 24upx;
 				top: 700upx;
-			}
+			} 
 		// }
 	// }
 </style>

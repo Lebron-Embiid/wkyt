@@ -1,11 +1,11 @@
-.business_view.data-v-49e4f0b2 {
+.business_view.data-v-bc939b8e {
   width: 100%;
 }
-.business_view .bus_bg.data-v-49e4f0b2 {
+.business_view .bus_bg.data-v-bc939b8e {
     display: block;
     width: 100%;
 }
-.business_view .qualify_box.data-v-49e4f0b2 {
+.business_view .qualify_box.data-v-bc939b8e {
     padding: 20rpx;
     background: #fff;
     -webkit-box-sizing: border-box;
@@ -25,14 +25,14 @@
     color: #000;
     font-size: 26rpx;
 }
-.business_view .qualify_box .qb_title.data-v-49e4f0b2 {
+.business_view .qualify_box .qb_title.data-v-bc939b8e {
       width: 50%;
       overflow: hidden;
       -o-text-overflow: ellipsis;
          text-overflow: ellipsis;
       white-space: nowrap;
 }
-.business_view .qualify_box .qb_right.data-v-49e4f0b2 {
+.business_view .qualify_box .qb_right.data-v-bc939b8e {
       display: -webkit-box;
       display: -webkit-flex;
       display: -ms-flexbox;
@@ -46,24 +46,24 @@
           -ms-flex-align: center;
               align-items: center;
 }
-.business_view .qualify_box .qb_right image.data-v-49e4f0b2 {
+.business_view .qualify_box .qb_right image.data-v-bc939b8e {
         display: block;
         width: 48rpx;
         height: 41rpx !important;
         margin-right: 10rpx;
 }
-.business_view .bus_info_box.data-v-49e4f0b2 {
+.business_view .bus_info_box.data-v-bc939b8e {
     padding: 30rpx 30rpx 25rpx 35rpx;
     background: #fff;
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
 }
-.business_view .bus_info_box .bi_title.data-v-49e4f0b2, .business_view .bus_info_box .bi_contact.data-v-49e4f0b2 {
+.business_view .bus_info_box .bi_title.data-v-bc939b8e, .business_view .bus_info_box .bi_contact.data-v-bc939b8e {
       color: #313131;
       font-size: 24rpx;
       position: relative;
 }
-.business_view .bus_info_box .bi_title.data-v-49e4f0b2:before, .business_view .bus_info_box .bi_contact.data-v-49e4f0b2:before {
+.business_view .bus_info_box .bi_title.data-v-bc939b8e:before, .business_view .bus_info_box .bi_contact.data-v-bc939b8e:before {
         content: "";
         width: 25rpx;
         height: 10rpx;
@@ -75,18 +75,18 @@
             -ms-transform: translateY(-50%);
                 transform: translateY(-50%);
 }
-.business_view .bus_info_box .bi_contact.data-v-49e4f0b2 {
+.business_view .bus_info_box .bi_contact.data-v-bc939b8e {
       margin: 30rpx 0 10rpx;
 }
-.business_view .bus_info_box .bi_txt.data-v-49e4f0b2 {
+.business_view .bus_info_box .bi_txt.data-v-bc939b8e {
       color: #313131;
       font-size: 24rpx;
       margin-bottom: 5rpx;
 }
-.business_view .bus_store_box.data-v-49e4f0b2 {
+.business_view .bus_store_box.data-v-bc939b8e {
     background: #fff;
 }
-.business_view .bus_store_box .bus_store_item.data-v-49e4f0b2 {
+.business_view .bus_store_box .bus_store_item.data-v-bc939b8e {
       padding: 25rpx 20rpx;
       -webkit-box-sizing: border-box;
               box-sizing: border-box;
@@ -104,10 +104,10 @@
               align-items: flex-start;
       border-bottom: 1px solid #DFDFDF;
 }
-.business_view .bus_store_box .bus_store_item.data-v-49e4f0b2:last-child {
+.business_view .bus_store_box .bus_store_item.data-v-bc939b8e:last-child {
         border-bottom: 0;
 }
-.business_view .bus_store_box .bus_store_item .bs_img.data-v-49e4f0b2 {
+.business_view .bus_store_box .bus_store_item .bs_img.data-v-bc939b8e {
         width: 178rpx;
         height: 193rpx;
         border: 1px solid #DCDCDC;
@@ -116,12 +116,12 @@
         overflow: hidden;
         margin-right: 35rpx;
 }
-.business_view .bus_store_box .bus_store_item .bs_img image.data-v-49e4f0b2 {
+.business_view .bus_store_box .bus_store_item .bs_img image.data-v-bc939b8e {
           display: block;
           width: 100%;
           height: 100% !important;
 }
-.business_view .bus_store_box .bus_store_item .bs_info .bsi_title.data-v-49e4f0b2 {
+.business_view .bus_store_box .bus_store_item .bs_info .bsi_title.data-v-bc939b8e {
         color: #160c11;
         font-size: 22rpx;
         margin: 20rpx 0 15rpx;
@@ -130,7 +130,7 @@
            text-overflow: ellipsis;
         white-space: nowrap;
 }
-.business_view .bus_store_box .bus_store_item .bs_info .bsi_info.data-v-49e4f0b2 {
+.business_view .bus_store_box .bus_store_item .bs_info .bsi_info.data-v-bc939b8e {
         color: #7d7d7d;
         font-size: 20rpx;
         margin-bottom: 50rpx;
@@ -139,11 +139,11 @@
            text-overflow: ellipsis;
         white-space: nowrap;
 }
-.business_view .bus_store_box .bus_store_item .bs_info .bsi_mark.data-v-49e4f0b2 {
+.business_view .bus_store_box .bus_store_item .bs_info .bsi_mark.data-v-bc939b8e {
         color: #00001f;
         font-size: 24rpx;
 }
-.business_view .bus_store_box .bus_store_item .bs_info .bsi_mark text.data-v-49e4f0b2 {
+.business_view .bus_store_box .bus_store_item .bs_info .bsi_mark text.data-v-bc939b8e {
           color: #4d4d4d;
           font-size: 18rpx;
           margin-left: 120rpx;

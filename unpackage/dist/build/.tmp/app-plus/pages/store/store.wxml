@@ -1,1 +1,1 @@
-<view class="store_view data-v-7c9dc915" bind:__l="__l"></view>
+<view class="store_view data-v-27c95420"><web-view webview-styles="{{webviewStyles}}" src="{{url}}" class="data-v-27c95420"></web-view></view>

@@ -1,10 +1,10 @@
 <template>
 	<view class="person_view">
 		<view class="page_bg"></view>
-		<!-- #ifdef APP-PLUS -->  
-		<view class="status_bar">  
-			<view class="top_view"></view>  
-		</view>  
+		<!-- #ifdef APP-PLUS -->
+		<view class="status_bar">
+			<view class="top_view"></view>
+		</view>
 		<!-- #endif -->
 		<view class="person_top">
 			<view class="person_bg">
@@ -19,13 +19,10 @@
 		</view>
 		<view class="nav_box">
 			<view class="order_box">
-				<view class="order_item"><navigator url="/pages/my_order/my_order?id=0"><image src="../../static/img/order_icon1.png" mode="widthFix"></image>待付款<view v-if="status_0 != 0">{{status_0}}</view></navigator></view>
-				<view class="order_item"><navigator url="/pages/my_order/my_order?id=1"><image src="../../static/img/order_icon2.png" mode="widthFix"></image>待发货<view v-if="status_1 != 0">{{status_1}}</view></navigator></view>
-				<view class="order_item"><navigator url="/pages/my_order/my_order?id=2"><image src="../../static/img/order_icon3.png" mode="widthFix"></image>待收货<view v-if="status_2 != 0">{{status_2}}</view></navigator></view>
-				<view class="order_item"><navigator url="/pages/my_order/my_order?id=3"><image src="../../static/img/order_icon4.png" mode="widthFix"></image>已完成</navigator></view>
-			</view>
-			<view class="nav_item">
-				<navigator class="navigator" url="/pages/wallet/wallet">我的钱包<image src="../../static/img/next.png" mode="widthFix"></image></navigator>
+				<!-- <view class="order_item"><navigator url="/pages/my_order/my_order?order_state=10"><image src="../../static/img/order_icon1.png" mode="widthFix"></image>待付款<view v-if="status_0 != 0">{{status_0}}</view></navigator></view> -->
+				<view class="order_item"><navigator url="/pages/my_order/my_order?order_state=20"><image src="../../static/img/order_icon2.png" mode="widthFix"></image>待发货<view v-if="status_1 != 0">{{status_1}}</view></navigator></view>
+				<view class="order_item"><navigator url="/pages/my_order/my_order?order_state=30"><image src="../../static/img/order_icon3.png" mode="widthFix"></image>待收货<view v-if="status_2 != 0">{{status_2}}</view></navigator></view>
+				<view class="order_item"><navigator url="/pages/my_order/my_order?order_state=40"><image src="../../static/img/order_icon4.png" mode="widthFix"></image>已完成</navigator></view>
 			</view>
 			<view class="nav_item">
 				<navigator class="navigator" url="/pages/car/car">我的购物车<image src="../../static/img/next.png" mode="widthFix"></image></navigator>
@@ -37,6 +34,9 @@
 				<navigator class="navigator" url="/pages/my_collect/my_collect">我的收藏<image src="../../static/img/next.png" mode="widthFix"></image></navigator>
 			</view>
 			<view class="nav_item">
+				<navigator class="navigator" url="/pages/withdraw/withdraw">提现<image src="../../static/img/next.png" mode="widthFix"></image></navigator>
+			</view>
+			<view class="nav_item">
 				<view class="navigator" @click="logOut">退出登录</view>
 			</view>
 		</view>
@@ -44,6 +44,12 @@
 </template>
 
 <script>
+	import api from '../../api/api'
+	import {
+		mapState,
+		mapMutations
+	} from 'vuex'
+
 	export default{
 		data(){
 			return{
@@ -51,7 +57,7 @@
 				id:'',
 				avatar_url: '../../static/img/person_avatar.png',
 				money:0,
-				nickname:'晓晓可',
+				nickname:'',
 				orders:[],
 				status_0:0,
 				status_1:0,
@@ -60,13 +66,17 @@
 			}
 		},
 		methods:{
+			...mapMutations(['logout']),
 			toSettings(e){
 				uni.navigateTo({
 					url: "/pages/settings/settings"
 				})
 			},
 			logOut(){
-				 uni.showToast({
+                this.logout();
+                uni.clearStorageSync();
+
+                uni.showToast({
 				 	title:"退出成功",
 				 	icon:'none',
 				 });
@@ -78,10 +88,53 @@
 			}
 		},
 		onLoad() {
+			var that = this; 
+			uni.request({
+				url: api.config.baseURL+'index.php?act=member&key='+uni.getStorageSync("access_token"),
+				method: 'POST',
+				dataType: "json",
+				header: {
+					'content-type': 'application/x-www-form-urlencoded'
+				},
+				success: res => {
+					//失败
+					if(res.data.datas.error){
+						uni.showToast({title:res.data.datas.error,icon:'none'});
+						return;
+					}
+					//成功
+					var data = res.data.datas; 
+					that.id = data.member_info.member_id;
+					that.avatar_url = data.member_info.avator;
+					that.nickname = data.member_info.user_name; 
+				}
+			});
 			uni.startPullDownRefresh();
 		},
 		onPullDownRefresh() {
+			var that = this;
 			setTimeout(function () {
+				
+				uni.request({
+					url: api.config.baseURL+'index.php?act=member&key='+uni.getStorageSync("access_token"),
+					method: 'POST',
+					dataType: "json",
+					header: {
+						'content-type': 'application/x-www-form-urlencoded'
+					},
+					success: res => {
+						//失败
+						if(res.data.datas.error){
+							uni.showToast({title:res.data.datas.error,icon:'none'});
+							return;
+						}
+						//成功
+						var data = res.data.datas; 
+						that.id = data.member_info.member_id;
+						that.avatar_url = data.member_info.avator;
+						that.nickname = data.member_info.user_name; 
+					}
+				});
 				uni.stopPullDownRefresh();
 			}, 1000);
 		}

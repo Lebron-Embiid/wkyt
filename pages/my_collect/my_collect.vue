@@ -3,78 +3,93 @@
 		<view class="page_bg"></view>
 		<view class="collect_box">
 			<view class="collect_item" v-for="(item,index) in collect_list" :key="index">
-				<image :src="item.photo" class="ci_photo" mode="aspectFill"></image>
+				<view class="ci_title">{{item.content}}</view>
+				<view class="ci_time">{{item.add_time}}</view>
+				<!-- <image :src="item.url" class="ci_photo" mode="aspectFill"></image>
 				<view class="ci_layer">
 					<image src="../../static/img/play.png" mode="widthFix"></image>
 					<text>{{item.num}}</text>
-				</view>
+				</view> -->
 			</view>
 		</view>
 	</view>
 </template>
 
 <script>
+	import formatDate from '../../api/util.js'
+	import api from '../../api/api'
 	export default{
 		data(){
 			return{
-				collect_list: [
-					{
-						id: 1,
-						photo: "../../static/img/collect_img1.jpg",
-						num: "3.6w"
-					},
-					{
-						id: 2,
-						photo: "../../static/img/collect_img2.jpg",
-						num: "3.6w"
-					},
-					{
-						id: 3,
-						photo: "../../static/img/collect_img3.jpg",
-						num: "3.6w"
-					},
-					{
-						id: 4,
-						photo: "../../static/img/collect_img4.jpg",
-						num: "3.6w"
-					},
-					{
-						id: 5,
-						photo: "../../static/img/collect_img5.jpg",
-						num: "3.6w"
-					},
-					{
-						id: 6,
-						photo: "../../static/img/collect_img6.jpg",
-						num: "3.6w"
-					}
-				]
+				total_count:1,
+				curpage:1,
+				collect_list: []
 			}
 		},
-		methods:{
-			
+		methods:{			
+			getCollectionList(){
+				//TODO:分页处理
+				api.get('index.php?act=video&op=CollectionList', {curpage:this.curpage}).then(datas => { 
+					this.collect_list = datas.list; 
+					this.total_count = datas.total_count; 
+				})
+			},
 		},
 		onLoad() {
-			
-		}
+			this.getCollectionList();
+		},				
+		onReachBottom() {
+			var that = this;
+			this.curpage = this.curpage + 1
+			if(this.total_count < this.curpage){							
+				 uni.showToast({
+				   title: '暂无更多加载',
+				   duration: 2000,
+				   icon: 'none'
+				 })
+				 return false;
+			}
+			uni.showLoading({
+				title: "加载中"
+			})
+			setTimeout(function () {
+			    that.getCollectionList();
+				uni.hideLoading();
+			}, 1000);
+		},
 	}
 </script>
 
 <style scoped lang="scss">
+	.collect_view{
+		width: 100%;
+	}
 	.collect_box{
 		width: 100%;
 		padding: 30upx 30upx 0;
 		box-sizing: border-box;
-		display: flex;
-		justify-content: flex-start;
-		align-items: flex-start;
-		flex-wrap: wrap;
+		// flex-wrap: wrap;
 		.collect_item{
-			width: 33%;
-			margin: 0 0.5% 5upx 0;
+			width: 100%;
+			// width: 33%;
+			// margin: 0 0.5% 5upx 0;
+			margin-bottom: 15upx;
+			background: #fff;
+			padding: 15upx;
+			box-sizing: border-box;
 			position: relative;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			font-size: 26upx;
 			&:nth-child(3n){
 				margin-right: 0;
+			}
+			.ci_title{
+				width: 60%;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
 			}
 			.ci_photo{
 				display: block;

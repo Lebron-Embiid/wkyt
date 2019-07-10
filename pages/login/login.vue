@@ -42,7 +42,7 @@
 </template>
 
 <script>
-    import service from '../../service.js';
+    import api from '../../api/api'
     import {
         mapState,
         mapMutations
@@ -57,8 +57,8 @@
             return {
                 providerList: [],
                 hasProvider: false,
-                account: '',
-                password: '',
+                account: 'test6',
+                password: '123456',
                 positionTop: 0
             }
         },
@@ -95,71 +95,55 @@
                 this.positionTop = uni.getSystemInfoSync().windowHeight - 100;
             },
             bindLogin() {
+                const that = this;
                 /**
                  * 客户端对账号信息进行一些必要的校验。
                  * 实际开发中，根据业务需要进行处理，这里仅做示例。
                  */
-                // if (this.account.length < 5) {
-                //     uni.showToast({
-                //         icon: 'none',
-                //         title: '账号最短为 5 个字符'
-                //     });
-                //     return;
-                // }
-                // if (this.password.length < 6) {
-                //     uni.showToast({
-                //         icon: 'none',
-                //         title: '密码最短为 6 个字符'
-                //     });
-                //     return;
-                // }
+                if (this.account.length < 5) {
+                    uni.showToast({
+                        icon: 'none',
+                        title: '账号最短为 5 个字符'
+                    });
+                    return;
+                }
+                if (this.password.length < 6) {
+                    uni.showToast({
+                        icon: 'none',
+                        title: '密码最短为 6 个字符'
+                    });
+                    return;
+                }
                 /**
                  * 下面简单模拟下服务端的处理
                  * 检测用户账号密码是否在已注册的用户列表中
                  * 实际开发中，使用 uni.request 将账号信息发送至服务端，客户端在回调函数中获取结果信息。
                  */
-                const data = {
-                    account: this.account,
-                    password: this.password
-                };
-				uni.request({
-				    url: that.$api+'passport/mobile-login',
-				    data: {
-						contact_way:this.phoneno,
-						password:this.password
-					},
-					method: 'POST',
-					dataType:'json',
-					header: {
-						'content-type': 'application/x-www-form-urlencoded'
-					},
-				    success: (res) => {
-						if(res.data.code!=1){
-							uni.showToast({title:res.data.data.msg,icon:'none'});
-						}else{
-				
-							uni.clearStorageSync(); 
-							uni.setStorageSync('access_token',res.data.data.access_token);
-							uni.setStorageSync('level',res.data.data.level);
-							uni.showToast({title:res.data.data.msg,icon:'none',duration:1500});
-							that.$access_token = uni.getStorageSync('access_token');
-							that.$level = uni.getStorageSync('level');
-							console.log(that.$access_token)
-							console.log(that.$level)
-							setTimeout(function(){
-								uni.reLaunch({
-									url: "/pages/index/index"
-								})
-							},1500)
-						}
-				    },
-					fail: () => {
-						uni.showToast({title:res.data.msg,icon:'none'});
-					}
-				});
-				uni.reLaunch({
-					url: "/pages/birth/birth"
-				})
+                // const data = {
+                //     account: this.account,
+                //     password: this.password
+                // };
+                api.post('index.php?act=login', {
+                    username: that.account,
+                    password: that.password,
+                    client: 'wap'
+                }).then(datas => {
+                    //成功
+                    uni.clearStorageSync();
+                    uni.setStorageSync('access_token', datas.key);
+                    uni.showToast({title: datas.username + '，登录成功', icon: 'none', duration: 1500});
+                    that.$access_token = uni.getStorageSync('access_token');
+                    console.log(that.$access_token)
+                    setTimeout(function () {
+                        uni.reLaunch({
+                            url: "/pages/index/index"
+                        })
+                        that.toMain(datas.username)
+                    }, 1500)
+                })
+				// uni.reLaunch({
+				// 	url: "/pages/birth/birth"
+				// })
                 // const validUser = service.getUsers().some(function (user) {
                 //     return data.account === user.account && data.password === user.password;
                 // });

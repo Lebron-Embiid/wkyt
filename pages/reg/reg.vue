@@ -30,6 +30,7 @@
 </template>
 
 <script>
+	import api from '../../api/api'
     import service from '../../service.js';
     import mInput from '../../components/m-input.vue';
 	var timer;
@@ -59,12 +60,12 @@
 		},
         methods: {
 			toLogin() {
-				uni.navigateBack({
-					delta: 1
-				})
-				// uni.redirectTo({
-				// 	url: "/pages/login/login"
-				// });
+// 				uni.navigateBack({
+// 					delta: 1
+// 				})
+				uni.redirectTo({
+					url: "/pages/login/login"
+				});
 			},
 			getcode(){
 				var that = this;
@@ -79,9 +80,14 @@
 					return false;
 				}
 				uni.request({
-				    url: '', //仅为示例，并非真实接口地址。
+				    url: 'http://www.wk.com/mobile/index.php?act=login&op=register',  
 				    data: {content:that.account},
-					method: 'GET',
+					method: 'POST',
+					data:{
+						username:account, 
+						password:password,
+						code:code
+					},
 					dataType:'json',
 					header: {
 						'content-type': 'application/x-www-form-urlencoded'
@@ -104,44 +110,24 @@
 				});
 			},
             register() {
-                /**
-                 * 客户端对账号信息进行一些必要的校验。
-                 * 实际开发中，根据业务需要进行处理，这里仅做示例。
-                 */
-                // if (this.account.length < 5) {
-                //     uni.showToast({
-                //         icon: 'none',
-                //         title: '账号最短为 5 个字符'
-                //     });
-                //     return;
-                // }
-                // if (this.password.length < 6) {
-                //     uni.showToast({
-                //         icon: 'none',
-                //         title: '密码最短为 6 个字符'
-                //     });
-                //     return;
-                // }
-                // if (this.email.length < 3 || !~this.email.indexOf('@')) {
-                //     uni.showToast({
-                //         icon: 'none',
-                //         title: '邮箱地址不合法'
-                //     });
-                //     return;
-                // }
-
-                const data = {
-                    account: this.account,
-                    password: this.password,
-                    code: this.code
-                }
-                service.addUser(data);
-                uni.showToast({
-                    title: '注册成功'
-                });
-                uni.navigateBack({
-                    delta: 1
-                });
+				if(this.account.length != 11){
+					uni.showToast({
+						title:"请填写正确的号码",
+						icon: 'none'
+					})	
+					return false;
+				}
+				api.post('index.php?act=login&op=tel_register', {
+					username:this.account, password:this.password,code:this.code
+				}).then(datas => { 
+				}) 
+  
+//                 uni.showToast({
+//                     title: '注册成功'
+//                 });
+//                 uni.navigateBack({
+//                     delta: 1
+//                 });
             }
         }
     }

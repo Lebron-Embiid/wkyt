@@ -14,7 +14,13 @@
     "pages/my_collect/my_collect",
     "pages/business_info/business_info",
     "pages/awards/awards",
-    "pages/comment/comment"
+    "pages/comment/comment",
+    "pages/my_order/my_order",
+    "pages/car/car",
+    "pages/my_coupon/my_coupon",
+    "pages/product_detail/product_detail",
+    "pages/withdraw/withdraw",
+    "pages/settings/settings"
   ],
   "subPackages": [],
   "window": {
@@ -53,11 +59,12 @@
       }
     ]
   },
+  "nvueCompiler": "weex",
   "splashscreen": {
     "alwaysShowBeforeRender": true,
     "autoclose": false
   },
   "appname": "旺客易推",
-  "compilerVersion": "1.9.9",
+  "compilerVersion": "2.0.1",
   "usingComponents": {}
 }

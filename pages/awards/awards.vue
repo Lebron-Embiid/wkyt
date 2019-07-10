@@ -15,7 +15,6 @@
 			</view> -->
 			<view class="main">
 				<view class="canvas-container">
-	
 					<view :animation="animationData" class="canvas-content" id="zhuanpano" style="">
 					<!-- <view :animation="animationData" class="canvas-content" id="zhuanpano"  :style="[{transform:'rotate('+runDeg+')'}]"> -->
 						<!-- <canvas class="canvas" canvas-id="canvas"></canvas> -->

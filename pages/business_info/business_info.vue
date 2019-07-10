@@ -1,29 +1,29 @@
 <template>
 	<view class="business_view">
 		<view class="page_bg"></view>
-		<image src="../../static/img/business_info_bg.jpg" class="bus_bg" mode="widthFix"></image>
+		<image :src="store_banner" class="bus_bg" mode="widthFix"></image>
 		<view class="qualify_box bor mb20">
-			<view class="qb_title">徳盟互联</view>
-			<view class="qb_right">
-				<image src="../../static/img/qualification.png" mode="widthFix"></image>
-				<text>资质</text>
-			</view>
+			<view class="qb_title">{{store_name}}</view>
+			<!-- <view class="qb_right"> -->
+				<!-- <image src="../../static/img/qualification.png" mode="widthFix"></image> -->
+				<!-- <text>资质</text> -->
+			<!-- </view> -->
 		</view>
 		<view class="bus_info_box bor mb20">
-			<view class="bi_title">店铺地址：深圳市龙岗区龙岗路10号硅谷动力电子商务港6楼</view>
+			<view class="bi_title">店铺地址：{{store_address}}</view>
 			<view class="bi_contact">联系方式</view>
-			<view class="bi_txt">电话：18822840016</view>
-			<view class="bi_txt">邮箱：sa@demenk.com</view>
+			<view class="bi_txt">电话：{{store_phone}}</view>
+			<view class="bi_txt">邮箱：{{store_email}}</view>
 		</view>
-		<view class="bus_store_box bor">
+		<view class="bus_store_box bor" @tap="toDetail">
 			<view class="bus_store_item" v-for="(item,index) in business" :key="index">
-				<view class="bs_img"><image :src="item.src" mode="widthFix"></image></view>
+				<view class="bs_img"><image :src="item.goods_image_url" mode="widthFix"></image></view>
 				<view class="bs_info">
-					<view class="bsi_title">{{item.title}}</view>
-					<view class="bsi_info">{{item.info}}</view>
+					<view class="bsi_title">{{item.goods_name}}</view>
+					<view class="bsi_info">{{item.goods_jingle}}</view>
 					<view class="bsi_mark">
-						￥{{item.price}}
-						<text>规格：{{item.type}}</text>
+						￥{{item.goods_price}}
+						<!-- <text>规格：{{item.type}}</text> -->
 					</view>
 				</view>
 			</view>
@@ -32,26 +32,42 @@
 </template>
 
 <script>
+	import api from '../../api/api'
 	export default{
 		data(){
 			return{
-				business: [
-					{
-						id: 1,
-						src: "../../static/img/store_img.jpg",
-						title: "艾璐卡-山羊奶悦颜清透洁面乳",
-						info: "清洁皮肤，长效保湿滋润",
-						price: "98",
-						type: "3.5g"
-					}
-				]
+				store_name:'',
+				store_address:'',
+				store_banner:'../../static/img/business_info_bg.jpg',
+				store_phone:'',
+				store_email:'',
+				goods_id:'0',
+				business: []
 			}
 		},
-		methods:{
+		methods:{ 
+			toDetail(){
+				uni.navigateTo({
+					url: "/pages/product_detail/product_detail?goods_id="+this.goods_id
+				})
+			},
 			
 		},
-		onLoad() {
-			
+		onLoad(opt) {		
+			var that = this;
+			 api.get('index.php?act=store&op=store_info', {
+				'video_id': opt.video_id
+			 }).then(datas => { 
+				 that.goods_id = datas.goods_info.goods_id;
+			      that.business[0] = datas.goods_info;
+				  console.log(that.business)
+				  
+			      that.store_address = datas.store_address;
+			      that.store_banner = datas.store_banner_url;
+			      that.store_email = datas.store_email;
+			      that.store_name = datas.store_name;
+			      that.store_phone = datas.store_phone;
+			 })
 		}
 	}
 </script>

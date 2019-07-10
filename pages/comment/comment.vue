@@ -1,105 +1,43 @@
 <template>
 	<view class="comment_view">
 		<view class="comment_top">
-			<text>评论 128</text>
+			<text>评论 {{comment_count}}</text>
 			<image src="../../static/img/close_icon1.png" @tap="back" mode="widthFix"></image>
 		</view>
 		<scroll-view class="comment_box" :scroll-top="scrollTop" scroll-y="true">
 			<view class="comment_item" v-for="(item,index) in comment_list" :key="index">
 				<view class="comment_left">
-					<image :src="item.avatar" class="comment_avatar" mode="widthFix"></image>
+					<image  :src="item.avatar" class="comment_avatar" mode="widthFix"></image>
 					<view class="comment_info">
 						<view class="cic_title">{{item.name}}</view>
 						<view class="cic_info">{{item.info}}</view>
 					</view>
 				</view>
-				<view class="comment_right">
+				<view class="comment_right" @click="toComment(item.id)">
 					<image src="../../static/img/love_icon.png" mode="widthFix"></image>
 					<text>{{item.num}}</text>
 				</view>
 			</view>
 		</scroll-view>
 		<view class="fixed_submit">
-			<input type="text" placeholder="说点什么" value="" />
-			<button type="primary">发送</button>
+			<input type="text" placeholder="说点什么" :value="content" v-model="content" />
+			<button type="primary" @tap="toSend">发送</button>
 		</view>
 	</view>
 </template>
 
 <script>
+	import api from '../../api/api'
 	export default{
 		data(){
 			return{
+				comment_count:0,
 				scrollTop: 0,
-				comment_list:[
-					{
-						id: 1,
-						avatar: "../../static/img/comment_avatar1.png",
-						name: "心是i",
-						info: "你陪我一程，我念你一生。",
-						num: 3119
-					},{
-						id: 1,
-						avatar: "../../static/img/comment_avatar1.png",
-						name: "心是i",
-						info: "你陪我一程，我念你一生。",
-						num: 3119
-					},{
-						id: 1,
-						avatar: "../../static/img/comment_avatar1.png",
-						name: "心是i",
-						info: "你陪我一程，我念你一生。",
-						num: 3119
-					},{
-						id: 1,
-						avatar: "../../static/img/comment_avatar1.png",
-						name: "心是i",
-						info: "你陪我一程，我念你一生。",
-						num: 3119
-					},{
-						id: 1,
-						avatar: "../../static/img/comment_avatar1.png",
-						name: "心是i",
-						info: "你陪我一程，我念你一生。",
-						num: 3119
-					},{
-						id: 1,
-						avatar: "../../static/img/comment_avatar1.png",
-						name: "心是i",
-						info: "你陪我一程，我念你一生。",
-						num: 3119
-					},{
-						id: 1,
-						avatar: "../../static/img/comment_avatar1.png",
-						name: "心是i",
-						info: "你陪我一程，我念你一生。",
-						num: 3119
-					},{
-						id: 1,
-						avatar: "../../static/img/comment_avatar1.png",
-						name: "心是i",
-						info: "你陪我一程，我念你一生。",
-						num: 3119
-					},{
-						id: 1,
-						avatar: "../../static/img/comment_avatar1.png",
-						name: "心是i",
-						info: "你陪我一程，我念你一生。",
-						num: 3119
-					},{
-						id: 1,
-						avatar: "../../static/img/comment_avatar1.png",
-						name: "心是i",
-						info: "你陪我一程，我念你一生。",
-						num: 3119
-					},{
-						id: 1,
-						avatar: "../../static/img/comment_avatar1.png",
-						name: "心是i",
-						info: "你陪我一程，我念你一生。",
-						num: 3119
-					}
-				]
+				content: "",
+				video_id: 0,
+				total_count:1,
+				curpage:1,
+				comment_list:[]
 			}
 		},
 		methods:{
@@ -107,11 +45,75 @@
 				uni.navigateBack({
 					delta: 1
 				})
-			}
+			},					
+			toSend(){ 
+			if(this.content == ''){			
+				uni.showToast({
+				  title: '请填写信息',
+				  duration: 2000,
+				  icon: 'none'
+				})
+			} 
+				 api.post('index.php?act=video&op=videoComment', {
+				 	'video_id': this.video_id,
+				 	'content': this.content
+				 }).then(datas => {
+					 if(datas == 1){
+						 uni.showToast({
+						   title: '评论成功',
+						   duration: 2000,
+						   icon: 'none'
+						 })
+						 this.content = ''
+					 } 
+				 })
+			},
+			toComment:function(id){
+				console.log(id)		
+				api.get('index.php?act=video&op=CommentPraise', {
+					id:id
+				}).then(datas => {
+					console.log(datas.list) 
+				})
+			},
+			getCommentList(){
+				//TODO:分页处理
+					api.get('index.php?act=video&op=CommentList', {
+						video_id:this.video_id,curpage:this.curpage
+					}).then(datas => {
+						console.log(datas.list)
+						this.comment_list = datas.list
+						this.comment_count = datas.count
+						this.total_count = datas.total_count
+					})
+			},
+		
 		},
-		onLoad() {
-			
-		}
+		onLoad(opt) {
+			this.video_id = opt.video_id
+			this.comment_count = opt.comment_count
+			//评论分页
+			this.getCommentList();
+		},			
+		onReachBottom() {
+			var that = this;
+			this.curpage = this.curpage + 1
+			if(this.total_count < this.curpage){							
+				 uni.showToast({
+				   title: '暂无更多加载',
+				   duration: 2000,
+				   icon: 'none'
+				 })
+				 return false;
+			}
+			uni.showLoading({
+				title: "加载中"
+			})
+			setTimeout(function () {
+			    that.getCommentList();
+				uni.hideLoading();
+			}, 1000);
+		},
 	}
 </script>
 

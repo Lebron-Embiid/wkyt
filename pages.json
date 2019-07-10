@@ -22,20 +22,21 @@
         },{
             "path": "pages/store/store",
             "style": {
-				"navigationStyle": "custom",
-                "navigationBarTitleText": "",
-				"app-plus":{
-					"animationType": "pop-in",
-					"animationDuration": 300
-				}
+				"navigationStyle": "web",
+                "navigationBarTitleText": "商城",
+                "app-plus":{
+                  "animationType": "pop-in",
+                  "animationDuration": 300,
+                  "titleNView":false
+                }
             }
         },{
             "path": "pages/income/income",
             "style": {
                 "navigationBarTitleText": "收益",
 				"app-plus":{
-					"titleNView" : {  
-                        "splitLine":{"color":"#F4F4F4"} 
+					"titleNView" : {
+                        "splitLine":{"color":"#F4F4F4"}
                     },
 					"animationType": "pop-in",
 					"animationDuration": 300
@@ -135,6 +136,60 @@
             "path": "pages/comment/comment",
             "style": {
                 "navigationBarTitleText": "评论",
+				"app-plus":{
+					"animationType": "pop-in",
+					"animationDuration": 300
+				}
+            }
+        }, {
+            "path": "pages/my_order/my_order",
+            "style": {
+                "navigationBarTitleText": "订单",
+				"app-plus":{
+					"animationType": "pop-in",
+					"animationDuration": 300
+				}
+            }
+        }, {
+            "path": "pages/car/car",
+            "style": {
+                "navigationBarTitleText": "购物车",
+				"app-plus":{
+					"animationType": "pop-in",
+					"animationDuration": 300
+				}
+            }
+        }, {
+            "path": "pages/my_coupon/my_coupon",
+            "style": {
+                "navigationBarTitleText": "我的优惠券",
+				"app-plus":{
+					"animationType": "pop-in",
+					"animationDuration": 300
+				}
+            }
+        }, {
+            "path": "pages/product_detail/product_detail",
+            "style": {
+                "navigationBarTitleText": "商品详情",
+				"app-plus":{
+					"animationType": "pop-in",
+					"animationDuration": 300
+				}
+            }
+        }, {
+            "path": "pages/withdraw/withdraw",
+            "style": {
+                "navigationBarTitleText": "提现",
+				"app-plus":{
+					"animationType": "pop-in",
+					"animationDuration": 300
+				}
+            }
+        }, {
+            "path": "pages/settings/settings",
+            "style": {
+                "navigationBarTitleText": "编辑资料",
 				"app-plus":{
 					"animationType": "pop-in",
 					"animationDuration": 300

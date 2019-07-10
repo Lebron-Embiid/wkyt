@@ -1,7 +1,8 @@
 {
-  "navigationStyle": "custom",
-  "navigationBarTitleText": "",
+  "navigationStyle": "web",
+  "navigationBarTitleText": "商城",
   "animationType": "pop-in",
   "animationDuration": 300,
+  "titleNView": false,
   "usingComponents": {}
 }

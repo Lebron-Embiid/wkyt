@@ -1,12 +1,13 @@
-.reg_view.data-v-3f85e0a2 {
+.reg_view.data-v-5c086679 {
   width: 100%;
   padding: 140rpx 90rpx 0;
 }
-.reg_view .reg_logo.data-v-3f85e0a2 {
+.reg_view .reg_logo.data-v-5c086679 {
     width: 190rpx;
     height: 190rpx;
     margin: 0 auto 80rpx;
-    border-radius: 50%;
+    -webkit-border-radius: 50%;
+            border-radius: 50%;
     background: #fff;
     display: -webkit-box;
     display: -webkit-flex;
@@ -23,12 +24,12 @@
     -webkit-box-shadow: 0 0 20rpx #f3f3f3;
             box-shadow: 0 0 20rpx #f3f3f3;
 }
-.reg_view .reg_logo image.data-v-3f85e0a2 {
+.reg_view .reg_logo image.data-v-5c086679 {
       display: block;
       width: 130rpx;
       height: 40rpx !important;
 }
-.reg_view .agree_box.data-v-3f85e0a2 {
+.reg_view .agree_box.data-v-5c086679 {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -45,23 +46,23 @@
     font-size: 22rpx;
     margin-top: 30rpx;
 }
-.reg_view .agree_box checkbox.data-v-3f85e0a2 {
+.reg_view .agree_box checkbox.data-v-5c086679 {
       -webkit-transform: scale(0.7);
           -ms-transform: scale(0.7);
               transform: scale(0.7);
 }
-.reg_view .agree_box .text.data-v-3f85e0a2 {
+.reg_view .agree_box .text.data-v-5c086679 {
       color: #257cf2;
 }
-.reg_view .to_login.data-v-3f85e0a2 {
+.reg_view .to_login.data-v-5c086679 {
     text-align: right;
     color: #c2c2c2;
     font-size: 22rpx;
 }
-.reg_view .to_login text.data-v-3f85e0a2 {
+.reg_view .to_login text.data-v-5c086679 {
       color: #257cf2;
 }
-.reg_view .yzm.data-v-3f85e0a2 {
+.reg_view .yzm.data-v-5c086679 {
     color: #257cf2;
     font-size: 20rpx;
     width: 25%;
