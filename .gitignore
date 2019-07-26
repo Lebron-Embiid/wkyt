@@ -1,3 +1,4 @@
 .idea
-unpackage
+unpackage/dist
+unpackage/res
 config

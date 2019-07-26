@@ -82,6 +82,7 @@
 </template>
 
 <script>
+	import api from '../../api/api'
 	export default {
 		data() {
 			return {
@@ -140,9 +141,9 @@
 				this.initdata(this)
 			},
 			// 初始化抽奖数据
-			initdata:function(that){
+			initdata:function(that){ 
 				uni.request({
-					url: "",
+					url: api.config.baseURL+'index.php?act=store&op=store_coupon',
 					data: {},
 					method: 'GET',
 					dataType: "json",
@@ -150,24 +151,27 @@
 						'content-type': 'application/x-www-form-urlencoded'
 					},
 					success: data => {
-						that.awardsConfig = data
-						that.chishu = data.luckdraw;
-						// 获取奖品的个数
+						console.log(data)
+						that.awardsConfig = data.data.datas;
+						that.chishu = data.data.datas.luckdraw;
+ 						// 获取奖品的个数
 						let awarrlength = that.awardsConfig.lists.length
 						// push 谢谢参与奖项
-						for (var i = 0; i <= 3 * 2; i++) {
-							if (i % 3 == 0) {
+						for (var i = 0; i <= data.data.datas.nothing; i++) {
+							if (i % 2 == 0) {
 								that.thanksarr.push(i)
 								that.awardsConfig.lists.splice(i, 0, {
 									name: '谢谢参与',
 									type: 0
-								});
-							}
+								}); 
+							}   
 						}
 						// 为每一项追加index属性
 						that.awardsConfig.lists.forEach(function(element, index) {
 							element.index = index
 						})
+						console.log(3333)
+						console.log(that.awardsConfig)
 					
 						// 画转盘
 						that.drawAwardRoundel();
@@ -208,8 +212,8 @@
 				}
 
 				// 获取奖品
-				uni.request({
-					url: "",
+				uni.request({ 
+					url: api.config.baseURL+'index.php?act=member&op=store_CouponDetail&key='+uni.getStorageSync("access_token"),
 					data: {},
 					method: 'GET',
 					dataType: "json",
@@ -217,9 +221,10 @@
 						'content-type': 'application/x-www-form-urlencoded'
 					},
 					success: res => {
+						console.log(res)
 						var awardIndex = 3;
 						that.awardsList.forEach(function(element, index) {
-							if (element.award == data.name) {
+							if (element.award == res.data.datas.name) {
 								awardIndex = index
 							}
 						})
@@ -271,9 +276,10 @@
 						that.chishu = that.chishu - 1;
 						if (awardType != 0) {
 							setTimeout(function() {
+								console.log(awardsConfig.lists[awardIndex]) 
 								uni.showModal({
 									title: '恭喜',
-									content: '获得' + (awardsConfig.lists[awardIndex].name),
+									content: '获得' + (awardsConfig.lists[awardIndex].name) + '优惠卷',
 									showCancel: false,
 									success:function(){
 										// 置空style  否则动画不生效
@@ -282,6 +288,7 @@
 										},1000)
 									}
 								});
+								
 								that.btnDisabled = '';
 							}.bind(that), duration);
 						} else {

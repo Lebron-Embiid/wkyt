@@ -160,6 +160,7 @@
 					}
 				}
 				.bs_info{
+					width: 65%;
 					.bsi_title{
 						color: #160c11;
 						font-size: 22upx;

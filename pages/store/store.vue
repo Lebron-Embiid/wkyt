@@ -33,20 +33,27 @@
         //         });
         //     }
         // },
-        onShow() { 
-				console.log(config.wapUrl)
-				console.log(uni.getStorageSync("access_token"))
+        onShow() {  
+			uni.startPullDownRefresh()
             // if (this.hasLogin) {
-            if (true) {
+            if (uni.getStorageSync("access_token")) {
                 this.url = config.wapUrl + 'index.html?uid=50&key=' + uni.getStorageSync("access_token");
 				console.log(this.url)
-            } else {
+             } else {
                 uni.navigateTo({
                     url: '/pages/login/login',
                 });
             }
-        }
-    }
+        },		
+			onPullDownRefresh() {
+				var that = this;
+				setTimeout(function () { 
+					that.url = config.wapUrl + 'index.html?uid=50&key=' + uni.getStorageSync("access_token");
+				console.log(that.url)
+					uni.stopPullDownRefresh();
+				}, 1000);
+			}
+		}
 </script>
 
 <style scoped lang="scss">

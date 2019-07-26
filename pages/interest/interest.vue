@@ -24,6 +24,9 @@
 		data(){
 			return{
 				num: 0,
+				birthday:0,
+				member_label:'',
+				sex:0,
 				interest_list: [
 // 					{
 // 						id: 1,
@@ -44,7 +47,7 @@
 					this.num--;
 				}
 			},
-			toNext: function(e){
+			toNext: function(e){ 
 				if(parseInt(this.num) < 3){
 					uni.showToast({
 						title: "至少关注3个兴趣！",
@@ -52,7 +55,10 @@
 						icon: 'none'
 					})
 					return;
-				}
+				}				
+				 api.post('index.php?act=member&op=hot', {'member_label':that.member_label,'sex':that.sex,'birthday':that.birthday}).then(datas => {   
+					 
+				 })
 				uni.reLaunch({
 					url: "/pages/index/index",
 					animationType: 'pop-in',
@@ -60,8 +66,10 @@
 				})
 			},
 		},
-		onLoad() {
+		onLoad(opt) {
 			var that = this;
+			that.sex = opt.sex;
+			that.birthday = opt.birth;
 			 api.get('index.php?act=video&op=video_tag', {}).then(datas => {  
 				  // that.interest_list = datas.list;
 				  var interest = [];

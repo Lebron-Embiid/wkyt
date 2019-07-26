@@ -1,10 +1,44 @@
 <script>
+	var wgtVer = null;  
+	var wgtUrl = null;
 	export default {
+		globalData:{
+			
+		},
 		onLaunch: function() {
 			console.log('App Launch');
 		},
-		onShow: function() {
-			console.log('App Show');
+		onShow: function () {
+			var that = this;
+			// plus.runtime.getProperty(plus.runtime.appid,function(inf){  
+			// 	wgtVer=inf.version;  
+			// 	console.log("当前应用版本："+wgtVer); 
+			// 	uni.request({
+			// 	    url: that.$api+'default/edition', //仅为示例，并非真实接口地址。
+			// 	    data: {number:wgtVer},
+			// 		method: 'POST',
+			// 		dataType:'json',
+			// 		header: {
+			// 			'content-type': 'application/x-www-form-urlencoded'
+			// 		},
+			// 	    success: (res) => {
+			// 			console.log(res.data)
+			// 			if(res.data.code == 0){ 
+			// 				wgtUrl = res.data.data;
+			// 				// downWgt();
+			// 				uni.showModal({
+			// 					content: res.data.msg,
+			// 					confirmText:"升级APP",
+			// 					showCancel:false,
+			// 					success:function(){
+			// 						console.log(uni.getSystemInfoSync().platform)
+			// 						plus.runtime.openURL(wgtUrl);
+			// 					}
+			// 				})							 
+			// 			}
+			// 	    }
+			// 	});
+			// });
 		},
 		onHide: function() {
 			console.log('App Hide');
@@ -127,5 +161,8 @@
 	}
 	button.primary:after{
 		border: 0;
+	}
+	.ob_avatar .uni-cover-image,.ob_avatar .uni-cover-image img{
+		border-radius: 50% !important;
 	}
 </style>

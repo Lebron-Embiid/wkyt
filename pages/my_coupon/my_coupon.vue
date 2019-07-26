@@ -34,7 +34,7 @@
         //     }
         // },
         onShow() { 
-			this.url = config.wapUrl + 'tmpl/member/voucher_list.html?&key=' + uni.getStorageSync("access_token");          
+			this.url = config.wapUrl + 'tmpl/member/voucher_list.html?key=' + uni.getStorageSync("access_token");          
         }
     }
 </script>

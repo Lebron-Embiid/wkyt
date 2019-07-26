@@ -81,7 +81,8 @@
 				this.idx = e.target.value;
 			},
 			toNext: function(e){
-				if(this.date == ""){
+				var that = this;
+				if(that.date == ""){
 					uni.showToast({
 						title: "请填写生日！",
 						duration: 1000,
@@ -90,7 +91,7 @@
 					return;
 				}
 				uni.reLaunch({
-					url: "/pages/interest/interest",
+					url: "/pages/interest/interest?sex="+that.current+"&birth="+that.date,
 					animationType: 'pop-in',
 					animationDuration: 500
 				})

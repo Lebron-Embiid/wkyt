@@ -11,7 +11,7 @@
 						<view>1.当月广告基础收益为0.08元一条，随市场变化及商家收益升涨；</view>
 						<view>2.用户观看广告上限后可每天在商品界面收取1活力值；</view>
 					</view>
-				</view>
+				</view> 
 				<!-- <view class="ic_bottom">累计收入(元){{income}} <navigator url="">马上去赚钱 &gt;</navigator></view> -->
 			</view>
 		</view>
@@ -90,7 +90,7 @@
 					for (let key in datas.list) {
 						// console.log(datas.list[key])
 						this.income_list.push({
-							time: utils.formatTime(datas.list[key].lg_add_time, 'Y-m-d'),
+							time: datas.list[key].lg_add_time,
 							info: datas.list[key].lg_desc,
 							num: datas.list[key].lg_av_amount
 						})
@@ -104,7 +104,7 @@
 					for (let key in datas.cash_list) {
 						// console.log(datas.cash_list[key])
 						this.withdraw_list.push({
-							time: utils.formatTime(datas.cash_list[key].pdc_add_time, 'Y-m-d'),
+							time: datas.list[key].lg_add_time,
 							info: datas.cash_list[key].info,
 							num: datas.cash_list[key].pdc_amount
 						})
@@ -160,6 +160,16 @@
 				}, 1000);
 			}
 		},
+		
+		onPullDownRefresh() {
+			var that = this;
+				that.income_page_number = 1;
+				that.withdraw_page_number = 1;
+			setTimeout(function () {
+			       that.getRewardList()
+				   uni.stopPullDownRefresh();
+			}, 1000);
+		}
 
 	}
 </script>

@@ -11,8 +11,9 @@ api.config.headers = {
 api.config.timeout = 10000
 //设置请求基地址
 api.config.baseURL = config.baseUrl + "/mobile/"
-//设置公共的Get参数
-api.config.params = {"key": uni.getStorageSync("access_token")}
+api.config.wapUrl = config.wapUrl + "app/"
+//设置公共的Get参数（app模式下此变量不更新）
+// api.config.params = {"key": uni.getStorageSync("access_token")}
 
 
 //错误处理
@@ -40,6 +41,8 @@ api.interceptors.request.use((request) => {
     // uni.showLoading({
     //     title: '加载中'
     // });
+    //用户登录凭证
+    request.params.key=uni.getStorageSync("access_token")
     console.log(request)
     return request
 })

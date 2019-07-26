@@ -2,7 +2,7 @@
 	<view class="collect_view">
 		<view class="page_bg"></view>
 		<view class="collect_box">
-			<view class="collect_item" v-for="(item,index) in collect_list" :key="index">
+			<view class="collect_item" v-for="(item,index) in collect_list" :key="index"  @click="toVideoDetail(item.v_id)">
 				<view class="ci_title">{{item.content}}</view>
 				<view class="ci_time">{{item.add_time}}</view>
 				<!-- <image :src="item.url" class="ci_photo" mode="aspectFill"></image>
@@ -26,7 +26,12 @@
 				collect_list: []
 			}
 		},
-		methods:{			
+		methods:{				
+			toVideoDetail: function(id){
+					uni.navigateTo({
+						url: "/pages/my_collect_detail/my_collect_detail?v_id="+id
+					})
+			},
 			getCollectionList(){
 				//TODO:分页处理
 				api.get('index.php?act=video&op=CollectionList', {curpage:this.curpage}).then(datas => { 

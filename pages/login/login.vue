@@ -128,18 +128,21 @@
                     password: that.password,
                     client: 'wap'
                 }).then(datas => {
-                    //成功
-                    uni.clearStorageSync();
-                    uni.setStorageSync('access_token', datas.key);
-                    uni.showToast({title: datas.username + '，登录成功', icon: 'none', duration: 1500});
-                    that.$access_token = uni.getStorageSync('access_token');
-                    console.log(that.$access_token)
-                    setTimeout(function () {
-                        uni.reLaunch({
-                            url: "/pages/index/index"
-                        })
-                        that.toMain(datas.username)
-                    }, 1500)
+					if(datas.status == 1){
+						uni.showToast({title: datas.msg, icon: 'none'});
+						return false;
+					}else{
+						//成功
+						uni.clearStorageSync();
+						uni.setStorageSync('access_token', datas.key);
+						uni.showToast({title: datas.username + '，登录成功', icon: 'none', duration: 1500});
+						that.$access_token = uni.getStorageSync('access_token');
+						 setTimeout(function () {
+							uni.reLaunch({
+								url: "/pages/index/index"
+							}) 
+						}, 1500)
+					}
                 })
 				// uni.reLaunch({
 				// 	url: "/pages/birth/birth"

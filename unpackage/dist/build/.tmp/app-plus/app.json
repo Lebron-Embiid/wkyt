@@ -20,7 +20,9 @@
     "pages/my_coupon/my_coupon",
     "pages/product_detail/product_detail",
     "pages/withdraw/withdraw",
-    "pages/settings/settings"
+    "pages/settings/settings",
+    "pages/my_collect_detail/my_collect_detail",
+    "pages/agreement/agreement"
   ],
   "subPackages": [],
   "window": {
@@ -65,6 +67,6 @@
     "autoclose": false
   },
   "appname": "旺客易推",
-  "compilerVersion": "2.0.1",
+  "compilerVersion": "2.1.1",
   "usingComponents": {}
 }

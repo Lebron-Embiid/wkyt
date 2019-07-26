@@ -53,8 +53,7 @@ uni-picker .uni-picker-item {
     color: #fff;
     font-size: 30rpx;
     background: #257cf2;
-    -webkit-border-radius: 5rpx;
-            border-radius: 5rpx;
+    border-radius: 5rpx;
 }
 .toNextPage button:after {
       border: 0;
@@ -118,12 +117,14 @@ button.primary {
   height: 90rpx;
   line-height: 90rpx;
   background-color: #3d88eb;
-  -webkit-border-radius: 50rpx;
-          border-radius: 50rpx;
+  border-radius: 50rpx;
   font-size: 30rpx;
   margin: 80rpx 0 30rpx;
 }
 button.primary:after {
   border: 0;
+}
+.ob_avatar .uni-cover-image, .ob_avatar .uni-cover-image ._img {
+  border-radius: 50% !important;
 }
 

@@ -1,7 +1,7 @@
 <template>
     <view class="reg_view">
 		<view class="reg_logo">
-			<image src="../../static/img/reg_logo.png" mode="widthFix"></image>
+			<image src="../../static/img/logo.png" mode="widthFix"></image>
 		</view>
         <view class="input-group">
             <view class="input-row">
@@ -20,7 +20,7 @@
         </view>
 		<view class="agree_box">
 			<checkbox value="" checked />
-			已同意<navigator class="text" url="">《旺客易推APP软件协议》</navigator>
+			已同意<navigator class="text" @click="toAgree">《旺客易推APP软件协议》</navigator>
 		</view>
         <view class="btn-row">
             <button type="primary" class="primary" @tap="register">注册</button>
@@ -43,7 +43,8 @@
                 account: '',
                 password: '',
                 code: '',
-				second:0
+				second:0,
+				mobile_code:100000,
             }
         },
 		onLoad() {
@@ -59,10 +60,12 @@
 			}
 		},
         methods: {
-			toLogin() {
-// 				uni.navigateBack({
-// 					delta: 1
-// 				})
+			toAgree() { 
+				uni.redirectTo({
+					url: "/pages/agreement/agreement"
+				});
+			},
+			toLogin() { 
 				uni.redirectTo({
 					url: "/pages/login/login"
 				});
@@ -74,30 +77,28 @@
 				} 
 				if(that.account.length != 11){
 					uni.showToast({
-						title:"请填写正确的号码",
+						title:"请填写正确的手机号码",
 						icon: 'none'
 					})	
 					return false;
 				}
 				uni.request({
-				    url: 'http://www.wk.com/mobile/index.php?act=login&op=register',  
-				    data: {content:that.account},
-					method: 'POST',
+				    url: api.config.baseURL+'/index.php?act=ihuyi&op=register',  
+ 					method: 'POST',
 					data:{
-						username:account, 
-						password:password,
-						code:code
+						mobile:that.account,  
 					},
 					dataType:'json',
 					header: {
 						'content-type': 'application/x-www-form-urlencoded'
 					},
 				    success: (res) => {  
-						if(res.data.code == 1){
-							uni.showToast({title:res.data.msg,icon:'none'});
+						if(res.data == '-1'){
+							uni.showToast({title:"验证码发送失败",icon:'none'});
 							that.second = 0;
 						}else{
-							uni.showToast({title:res.data.msg});
+							uni.showToast({title:"验证码发送成功"});
+							that.mobile_code = res.data
 							that.second = 60;
 							timer = setInterval(function(){
 								that.second--;
@@ -112,7 +113,21 @@
             register() {
 				if(this.account.length != 11){
 					uni.showToast({
-						title:"请填写正确的号码",
+						title:"请填写正确的手机号码",
+						icon: 'none'
+					})	
+					return false;
+				}
+				if(this.password == ''){
+					uni.showToast({
+						title:"请输入新密码",
+						icon: 'none'
+					})	
+					return false;
+				}
+				if(this.code == '' || this.code != this.mobile_code){
+					uni.showToast({
+						title:"请输入正确的验证码",
 						icon: 'none'
 					})	
 					return false;
@@ -120,14 +135,18 @@
 				api.post('index.php?act=login&op=tel_register', {
 					username:this.account, password:this.password,code:this.code
 				}).then(datas => { 
-				}) 
-  
-//                 uni.showToast({
-//                     title: '注册成功'
-//                 });
-//                 uni.navigateBack({
-//                     delta: 1
-//                 });
+					if(datas.status == 1){
+						uni.showToast({title: "注册失败", icon: 'none'});	
+						 return false;
+					}else{ 
+						uni.showToast({title: "注册成功,请返回登录", icon: 'none'});	
+ 						 setTimeout(function () {
+						    uni.reLaunch({
+						        url: "/pages/login/login"
+						    }) 
+						}, 1500)
+					} 
+				})  
             }
         }
     }
@@ -150,7 +169,7 @@
 			image{
 				display: block;
 				width: 130upx;
-				height: 40upx !important;
+				height: 130upx !important;
 			}
 		}
 		.agree_box{

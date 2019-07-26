@@ -26,7 +26,7 @@
         methods: {},
         onShow() { 
              this.url = config.wapUrl + '/tmpl/member/order_list.html?order_state='+this.order_state+'&key=' + uni.getStorageSync("access_token"); 
-					   
+					console.log(this.url)    
         },
 		 onLoad(opt) {
 			console.log(opt)

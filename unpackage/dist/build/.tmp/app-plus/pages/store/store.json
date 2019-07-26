@@ -1,8 +1,12 @@
 {
-  "navigationStyle": "web",
   "navigationBarTitleText": "商城",
+  "enablePullDownRefresh": true,
   "animationType": "pop-in",
   "animationDuration": 300,
-  "titleNView": false,
+  "pullToRefresh": {
+    "support": true,
+    "color": "#00001f",
+    "style": "circle"
+  },
   "usingComponents": {}
 }
