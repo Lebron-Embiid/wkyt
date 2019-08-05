@@ -19,7 +19,7 @@
 		</view>
 		<view class="nav_box">
 			<view class="order_box">
-				<!-- <view class="order_item"><navigator url="/pages/my_order/my_order?order_state=10"><image src="../../static/img/order_icon1.png" mode="widthFix"></image>待付款<view v-if="status_0 != 0">{{status_0}}</view></navigator></view> -->
+				<view class="order_item"><navigator url="/pages/my_order/my_order?order_state=10"><image src="../../static/img/order_icon1.png" mode="widthFix"></image>待付款<view v-if="status_0 != 0">{{status_0}}</view></navigator></view>
 				<view class="order_item"><navigator url="/pages/my_order/my_order?order_state=20"><image src="../../static/img/order_icon2.png" mode="widthFix"></image>待发货<view v-if="status_1 != 0">{{status_1}}</view></navigator></view>
 				<view class="order_item"><navigator url="/pages/my_order/my_order?order_state=30"><image src="../../static/img/order_icon3.png" mode="widthFix"></image>待收货<view v-if="status_2 != 0">{{status_2}}</view></navigator></view>
 				<view class="order_item"><navigator url="/pages/my_order/my_order?order_state=40"><image src="../../static/img/order_icon4.png" mode="widthFix"></image>已完成</navigator></view>

@@ -4,7 +4,7 @@
 		<view class="inter_title">欢迎来到旺客-易推</view>
 		<view class="inter_info">完善信息，个性化你的内容</view>
 		<view class="interest_box">
-			<view class="interest_item" @tap="selectInterest(index)" v-for="(item,index) in interest_list" :key="index">
+			<view class="interest_item" @tap="selectInterest(index,item.id)" v-for="(item,index) in interest_list" :key="index">
 				<view class="in_img">
 					<image :src="item.img" class="in_photo" mode="widthFix"></image>
 					<block v-if="item.select == 1">
@@ -26,6 +26,7 @@
 				num: 0,
 				birthday:0,
 				member_label:'',
+				label: [],
 				sex:0,
 				interest_list: [
 // 					{
@@ -40,14 +41,28 @@
 		methods:{
 			selectInterest: function(e){
 				if(this.interest_list[e].select == 0){
+					this.member_label = '';
 					this.interest_list[e].select = 1;
 					this.num++;
+					this.label.push(this.interest_list[e].id);
 				}else{
 					this.interest_list[e].select = 0;
 					this.num--;
+					for(let i=0; i<this.label.length; i++) {
+						this.member_label = '';
+						if(this.label[i] == this.interest_list[e].id) {
+							this.label.splice(i, 1);
+							break;
+						}
+					}
 				}
+				console.log(this.member_label);
 			},
 			toNext: function(e){ 
+				for(let i=0; i<this.label.length; i++) {
+					this.member_label += this.label[i]+',';
+				}
+				
 				if(parseInt(this.num) < 3){
 					uni.showToast({
 						title: "至少关注3个兴趣！",
@@ -55,8 +70,9 @@
 						icon: 'none'
 					})
 					return;
-				}				
-				 api.post('index.php?act=member&op=hot', {'member_label':that.member_label,'sex':that.sex,'birthday':that.birthday}).then(datas => {   
+				}			
+				
+				 api.post('index.php?act=member&op=hot', {'member_label':this.member_label,'sex':this.sex,'birthday':this.birthday}).then(datas => {   
 					 
 				 })
 				uni.reLaunch({

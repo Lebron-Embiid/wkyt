@@ -12,8 +12,8 @@
 			<cover-image class="ob_item oc_img3" v-if="status != 1" @tap.stop="toComment" :src="wapUrl+'index_icon3.png'"></cover-image><cover-view @tap="toComment" v-if="status != 1" class="ob_txt ob_comment">{{comment}}</cover-view>
 			<cover-image class="ob_item oc_img4" v-if="status != 1" @tap.stop="toShare" :src="wapUrl+'index_icon4.png'"></cover-image><cover-view  @tap="toShare" v-if="status != 1" class="ob_txt ob_share">{{share}}</cover-view>
 			
-			<cover-view class="cs_left_bg"></cover-view>
-			<cover-image class="cs_left" :src="tag_img"></cover-image>
+			<!-- <cover-view class="cs_left_bg"></cover-view> -->
+			<!-- <cover-image class="cs_left" :src="tag_img"></cover-image> -->
 			<cover-view class="cs_right">{{type}}</cover-view>
 			<cover-view class="cover_word">
 				{{info}}
@@ -22,16 +22,18 @@
 			<!-- <cover-image class="v_play_btn" :class="[isPlay==0?'active':'']" :src="wapUrl+'play_btn.png'"></cover-image> -->
 
 			<!-- 弹出红包 -->
-			<cover-image :src="wapUrl+'red_bg1.png'" class="red_img" v-if="red_show == true" :class="[red_show==true?'active':'']" @tap.stop="open_red"></cover-image>
+			<cover-image @touchmove.stop="preventTouchMove" :src="wapUrl+'red_bg1.png'" class="red_img" v-if="red_show == true" :class="[red_show==true?'active':'']" @tap.stop="open_red"></cover-image>
 			<cover-view class="red_title" v-if="red_show == true" :class="[red_show==true?'active':'']">{{red_title}}</cover-view>
 			<cover-view class="red_info" v-if="red_show == true" :class="[red_show==true?'active':'']">{{red_info}}</cover-view>
 
 			<!-- 打开红包 -->
-			<cover-image :src="wapUrl+'red_bg.png'" v-if="money_show == true" class="open_bg" :class="[money_show==true?'active':'']"></cover-image>
+			<cover-image @touchmove.stop="preventTouchMove" :src="wapUrl+'red_bg.png'" v-if="money_show == true" class="open_bg" :class="[money_show==true?'active':'']"></cover-image>
 			<cover-image :src="wapUrl+'close_icon1.png'" v-if="money_show == true" class="close_icon" @tap.stop="close_money" :class="[money_show==true?'active':'']"></cover-image>
 			<cover-view class="open_money" v-if="money_show == true" :class="[money_show==true?'active':'']">¥ {{money}}</cover-view>
 			<cover-view class="open_info" v-if="money_show == true" :class="[money_show==true?'active':'']">{{red_title}}{{red_info}}</cover-view>
 			<cover-view class="open_word" v-if="money_show == true" :class="[money_show==true?'active':'']">已存入钱包，可以直接消费</cover-view>
+			<cover-view class="open_reply_btn" v-if="money_show == true" :class="[money_show==true?'active':'']" @tap.stop="toResetPlay">重播</cover-view>
+			<cover-view class="open_next_btn" v-if="money_show == true" :class="[money_show==true?'active':'']" @tap.stop="toNextPlay">下一条</cover-view>
 		</video>
 	</view>
 </template>
@@ -88,6 +90,7 @@
 			}
 		},
 		methods:{
+			preventTouchMove(){},
 			startPause(){
 				console.log("tap");
 				if(this.isPlay == 1){
@@ -100,36 +103,44 @@
 			},
 			// 打开红包
 			open_red(){
-				api.post('index.php?act=video&op=reward', {
-					'video_id': this.video_id
-				}).then(datas => {
-					this.money = datas.amount;
-					this.red_title = '';
-					this.red_info = datas.message;
-
-					//显示红包内容
-					this.red_show = false;
-					this.money_show = true;
-				})
+				if(this.num == 1){
+					this.red_title = "";
+					this.red_info = "";
+					uni.navigateTo({
+						url: "/pages/awards/awards"
+					})
+				}else{
+					api.post('index.php?act=video&op=reward', {
+						'video_id': this.video_id
+					}).then(datas => {
+						this.money = datas.amount;
+						this.red_title = '';
+						this.red_info = datas.message;
+					
+						//显示红包内容
+						this.red_show = false;
+						this.money_show = true;
+					})
+				}
 			},
 			close_money(){
 				this.money_show = false;
-				setTimeout(function(){
-					uni.showModal({
-						title: "提示",
-						content: "前往大转盘抽奖？",
-						success: (res) => {
-							if(res.confirm){
-								uni.navigateTo({
-									url: "/pages/awards/awards"
-								})
-							}
-						},
-						fail: (err) => {
-							console.log(err)
-						}
-					})
-				},500)
+				// setTimeout(function(){
+				// 	uni.showModal({
+				// 		title: "提示",
+				// 		content: "前往大转盘抽奖？",
+				// 		success: (res) => {
+				// 			if(res.confirm){
+				// 				uni.navigateTo({
+				// 					url: "/pages/awards/awards"
+				// 				})
+				// 			}
+				// 		},
+				// 		fail: (err) => {
+				// 			console.log(err)
+				// 		}
+				// 	})
+				// },500)
 			}, 
 			//商家信息
 			toAvatar(){
@@ -155,7 +166,6 @@
 				      if(datas.code == 0){
 						  this.love = datas.v_like_count
 					  }
-				  
 				 })
 			},
 			//转发
@@ -164,23 +174,63 @@
 				 	'video_id': this.video_id
 				 }).then(datas => {
 				      if(datas.code == 0){
-						  uni.share({
-							provider: "weixin",
-							scene: "WXSceneSession",
-							type: 4,
-							href: "http://uniapp.dcloud.io/",
-							title: "uni-app分享",
-							summary: "我正在使用HBuilderX开发uni-app，赶紧跟我一起来体验！",
-							imageUrl: "https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/uni@2x.png",
-							mediaUrl: "",
-							success: function (res) {
-								console.log("success:" + JSON.stringify(res));
-								this.share = datas.v_forward_count
+						  uni.showModal({
+							title: "提示",
+							content: "分享需要下载此视频，确认下载？",
+							success: (res) => {
+								if(res.confirm){
+									uni.showLoading({
+										title: '下载中'
+									})
+									const downloadTask = uni.downloadFile({
+										url: this.url,
+										success: (res) => {
+											if (res.statusCode === 200) {
+												console.log(res.tempFilePath);
+												uni.saveVideoToPhotosAlbum({
+													filePath: res.tempFilePath,
+													success: function () {
+														uni.hideLoading();
+														uni.showToast({
+															title: '视频已保存到相册，请到其他平台分享',
+															icon: 'none'
+														})
+													}
+												})
+											}
+										},
+										fail: (res) => {
+											uni.showToast({
+												title: res.errMsg,
+												icon: 'none'
+											})
+										}
+									});
+									
+									downloadTask.onProgressUpdate((res) => {
+										// uni.showLoading({
+										// 	title: '下载中: ' + res.progress +'%'
+										// })
+										uni.showToast({
+											title: '下载中: ' + res.progress +'%',
+											icon: 'none'
+										})
+										console.log('下载进度' + res.progress);
+										// console.log('已经下载的数据长度' + res.totalBytesWritten);
+										// console.log('预期需要下载的数据总长度' + res.totalBytesExpectedToWrite);
+									
+										// 测试条件，取消下载任务。
+										if (res.progress == 100) {
+											uni.hideLoading();
+											// downloadTask.abort();
+										}
+									});
+								}
 							},
-							fail: function (err) {
-								console.log("fail:" + JSON.stringify(err));
+							fail: (err) => {
+								console.log(err)
 							}
-						});
+						})
 					  }
 				 })
 			},
@@ -271,10 +321,20 @@
 			},
 			ended: function(){
 				// parseInt(val) >= parseInt(max) && 
-				if(this.isOne == 0){
-					this.red_show = true;
-					this.isOne = 1;
+				if(this.num != 2){
+					if(this.isOne == 0){
+						this.red_show = true;
+						this.isOne = 1;
+						this.videoContext.pause();
+					}
 				}
+			},
+			toResetPlay: function(){
+				this.videoContext.play();
+				this.money_show = false;
+			},
+			toNextPlay: function(){
+				this.next();
 			},
 			// 播放上一个抖音
 			pre: function () {
@@ -465,7 +525,7 @@
 					height: 30upx;
 					position: absolute;
 					left: 35upx;
-					bottom: 297upx;
+					bottom: 217upx;
 					// cover-image{
 					// 	display: block;
 					// 	width: 34upx;
@@ -480,7 +540,7 @@
 					height: 58upx;
 					position: absolute;
 					left: 20upx;
-					bottom: 280upx;
+					bottom: 200upx;
 				}
 				.cs_right{
 					color: #fff;
@@ -493,8 +553,9 @@
 					text-overflow: ellipsis;
 					white-space: nowrap;
 					position: absolute;
-					left: 80upx;
-					bottom: 280upx;
+					// left: 80upx;
+					left: 35upx;
+					bottom: 200upx;
 					background: rgba(0,0,0,.13);
 					border-top-right-radius: 10upx;
 					border-bottom-right-radius: 10upx;
@@ -516,7 +577,7 @@
 				white-space: pre-wrap;
 				position: absolute;
 				left: 20upx;
-				bottom: 170upx;
+				bottom: 90upx;
 			}
 			.red_img,.open_bg{
 				position: absolute;
@@ -613,6 +674,23 @@
 				// 	display: block;
 				// }
 			} 
+			.open_reply_btn,.open_next_btn{
+				position: absolute;
+				text-align: center;
+				top: 780upx;
+				color: #3d3d3d;
+				font-size: 28upx;
+				display: none;
+				&.active{
+					display: block;
+				}
+			}
+			.open_reply_btn{
+				left: 230upx;				
+			}
+			.open_next_btn{
+				right: 230upx;
+			}
 		// }
 	// }
 	.v_play_btn{

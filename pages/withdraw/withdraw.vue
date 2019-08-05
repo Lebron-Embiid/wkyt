@@ -33,6 +33,7 @@
 <script>
 	import api from '../../api/api'
     import config from '../../config'
+	import { pathToBase64, base64ToPath } from '../../js_sdk/gsq-image-tools/image-tools/index.js'
     import {
         mapState
     } from 'vuex'
@@ -65,9 +66,31 @@
 					count: 1, //默认9
 					sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
 					sourceType: ['album'], //从相册选择
-					success: function (res) {
-						that.code_img = res.tempFilePaths[0];
-						that.urlTobase64(res.tempFilePaths[0]);
+					success: function (ress) {
+						// that.code_img = ress.tempFilePaths[0];
+						pathToBase64(ress.tempFilePaths[0])
+						.then(base64 => {
+							console.log(base64)
+							uni.request({
+								url: api.config.baseURL+'/index.php?act=ajax_return&op=upload_image',  
+								method: 'POST',
+								data:{
+									images:base64,  
+								},
+								dataType:'json',
+								header: {
+									'content-type': 'application/x-www-form-urlencoded'
+								},
+								success: (res) => {
+									console.log(res.data.url);
+									that.code_img = 'http://wkyt.demenk.com/data/upload/'+res.data.url
+								}
+							});
+						})
+						.catch(error => {
+							console.error(error)
+						})
+						// that.urlTobase64(ress.tempFilePaths[0]);
 					}
 				});
 			},

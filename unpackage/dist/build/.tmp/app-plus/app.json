@@ -24,7 +24,6 @@
     "pages/my_collect_detail/my_collect_detail",
     "pages/agreement/agreement"
   ],
-  "subPackages": [],
   "window": {
     "navigationBarTextStyle": "black",
     "navigationBarBackgroundColor": "#fff",
@@ -33,31 +32,23 @@
   "tabBar": {
     "color": "#1e1e1e",
     "selectedColor": "#257cf2",
-    "backgroundColor": "#ffffff",
+    "backgroundColor": "#fff",
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "首页",
-        "iconPath": "static/img/footer_icon1.png",
-        "selectedIconPath": "static/img/footer_icon1_on.png"
+        "text": "首页"
       },
       {
         "pagePath": "pages/store/store",
-        "text": "商城",
-        "iconPath": "static/img/footer_icon2.png",
-        "selectedIconPath": "static/img/footer_icon2_on.png"
+        "text": "商城"
       },
       {
         "pagePath": "pages/income/income",
-        "text": "收益",
-        "iconPath": "static/img/footer_icon3.png",
-        "selectedIconPath": "static/img/footer_icon3_on.png"
+        "text": "收益"
       },
       {
         "pagePath": "pages/person/person",
-        "text": "我的",
-        "iconPath": "static/img/footer_icon4.png",
-        "selectedIconPath": "static/img/footer_icon4_on.png"
+        "text": "我的"
       }
     ]
   },
@@ -67,6 +58,6 @@
     "autoclose": false
   },
   "appname": "旺客易推",
-  "compilerVersion": "2.1.1",
+  "compilerVersion": "2.1.3",
   "usingComponents": {}
 }

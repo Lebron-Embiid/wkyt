@@ -31,7 +31,7 @@
 		 onLoad(opt) {
 			console.log(opt)
 			console.log(uni.getStorageSync("access_token"))
-			this.order_state = opt.order_state
+			 this.order_state = opt.order_state
              this.url = config.wapUrl + '/tmpl/member/order_list.html?order_state='+opt.order_state+'&key=' + uni.getStorageSync("access_token"); 
 		 }
     }
