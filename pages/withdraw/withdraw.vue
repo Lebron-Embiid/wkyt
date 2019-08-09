@@ -83,7 +83,8 @@
 								},
 								success: (res) => {
 									console.log(res.data.url);
-									that.code_img = 'http://wkyt.demenk.com/data/upload/'+res.data.url
+									that.code_img = base64;
+									that.code_pic = res.data.url;
 								}
 							});
 						})

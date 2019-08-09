@@ -165,4 +165,12 @@
 	.ob_avatar .uni-cover-image,.ob_avatar .uni-cover-image img{
 		border-radius: 50% !important;
 	}
+	
+	
+	// .uni-tabbar .uni-tabbar__item .uni-tabbar__bd{
+	// 	height: 44px !important;
+	// }
+	// .uni-tabbar .uni-tabbar__item .uni-tabbar__bd .uni-tabbar__label{
+	// 	font-weight: bold !important;
+	// }
 </style>

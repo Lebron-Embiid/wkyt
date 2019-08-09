@@ -70,7 +70,8 @@
 								},
 								success: (res) => {
 									console.log(res.data.url);
-									that.avatar_pic = 'http://wkyt.demenk.com/data/upload/'+res.data.url;
+									that.avatar_pic = base64;
+									that.avatar = res.data.url;
 									console.log(that.avatar)
 								}
 							});

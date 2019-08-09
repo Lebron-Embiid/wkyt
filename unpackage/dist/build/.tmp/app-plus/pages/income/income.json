@@ -7,5 +7,7 @@
   },
   "animationType": "pop-in",
   "animationDuration": 300,
-  "usingComponents": {}
+  "usingComponents": {
+    "tabbar": "/components/tabbar"
+  }
 }

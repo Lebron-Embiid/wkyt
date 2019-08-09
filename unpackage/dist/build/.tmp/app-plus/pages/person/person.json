@@ -12,5 +12,7 @@
   "titleNView": {
     "type": "transparent"
   },
-  "usingComponents": {}
+  "usingComponents": {
+    "tabbar": "/components/tabbar"
+  }
 }

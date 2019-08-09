@@ -35,10 +35,12 @@
 			<cover-view class="open_reply_btn" v-if="money_show == true" :class="[money_show==true?'active':'']" @tap.stop="toResetPlay">重播</cover-view>
 			<cover-view class="open_next_btn" v-if="money_show == true" :class="[money_show==true?'active':'']" @tap.stop="toNextPlay">下一条</cover-view>
 		</video>
+		<!-- <tabbar :selected="0"></tabbar> -->
 	</view>
 </template>
 
 <script>
+	import tabbar from '../../components/tabbar.vue'
 	var ctx = uni.createCanvasContext('firstCanvas')
 	// const videoContext = uni.createVideoContext('myVideo')
 	import api from '../../api/api'
@@ -88,6 +90,9 @@
 				num: 0,
 				video_num: 0
 			}
+		},
+		components:{
+			tabbar
 		},
 		methods:{
 			preventTouchMove(){},
@@ -404,7 +409,7 @@
 		// height: 100vh;
 		width: 100%;
 		height: calc(100% - 28px);
-		position: absolute;
+		position: fixed;
 		left: 0;
 		top: var(--status-bar-height);
 	}
@@ -540,22 +545,22 @@
 					height: 58upx;
 					position: absolute;
 					left: 20upx;
-					bottom: 200upx;
+					bottom: 180upx;
 				}
 				.cs_right{
 					color: #fff;
-					width: 200upx;
+					// width: 200upx;
 					height: 58upx;
 					line-height: 58upx;
-					padding-left: 10upx;
-					font-size: 22upx;
+					padding: 0 15upx;
+					font-size: 30upx;
 					overflow: hidden;
 					text-overflow: ellipsis;
 					white-space: nowrap;
 					position: absolute;
 					// left: 80upx;
-					left: 35upx;
-					bottom: 200upx;
+					left: 30upx;
+					bottom: 180upx;
 					background: rgba(0,0,0,.13);
 					border-top-right-radius: 10upx;
 					border-bottom-right-radius: 10upx;
@@ -563,8 +568,8 @@
 			// }
 			.cover_word{
 				color: #fff;
-				font-size: 22upx;
-				width: 65%;
+				font-size: 26upx;
+				width: 85%;
 				height: 90upx;
 				line-height: 30upx;
 				color: #fff;
@@ -577,7 +582,7 @@
 				white-space: pre-wrap;
 				position: absolute;
 				left: 20upx;
-				bottom: 90upx;
+				bottom: 70upx;
 			}
 			.red_img,.open_bg{
 				position: absolute;
@@ -681,6 +686,12 @@
 				color: #3d3d3d;
 				font-size: 28upx;
 				display: none;
+				border: 1upx solid #f00;
+				border-radius: 50upx;
+				width: 135upx;
+				height: 50upx;
+				line-height: 50upx;
+				box-sizing: border-box;
 				&.active{
 					display: block;
 				}

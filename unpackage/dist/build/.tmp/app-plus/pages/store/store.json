@@ -8,5 +8,7 @@
     "color": "#00001f",
     "style": "circle"
   },
-  "usingComponents": {}
+  "usingComponents": {
+    "tabbar": "/components/tabbar"
+  }
 }

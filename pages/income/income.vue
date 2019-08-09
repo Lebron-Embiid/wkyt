@@ -46,10 +46,12 @@
 				</view>
 			</view>
 		</view>
+		<!-- <tabbar :selected="2"></tabbar> -->
 	</view>
 </template>
 
 <script>
+	import tabbar from '../../components/tabbar.vue'
 	import api from '../../api/api';
 	import utils from '../../utils/utils';
 	export default{
@@ -66,6 +68,9 @@
 				income_page_number:1,
 				withdraw_page_number:1
 			}
+		},
+		components:{
+			tabbar
 		},
 		methods:{
 			navbarTap: function(e){

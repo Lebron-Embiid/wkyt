@@ -40,10 +40,12 @@
 				<view class="navigator" @click="logOut">退出登录</view>
 			</view>
 		</view>
+		<!-- <tabbar :selected="3"></tabbar> -->
 	</view>
 </template>
 
 <script>
+	import tabbar from '../../components/tabbar.vue'
 	import api from '../../api/api'
 	import {
 		mapState,
@@ -64,6 +66,9 @@
 				status_2:0,
 				status_3:0,
 			}
+		},
+		components:{
+			tabbar
 		},
 		methods:{
 			...mapMutations(['logout']),
