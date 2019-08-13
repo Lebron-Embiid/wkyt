@@ -38,10 +38,16 @@
             "path": "pages/income/income",
             "style": {
                 "navigationBarTitleText": "收益",
+				"enablePullDownRefresh": true,
 				"app-plus":{
 					"titleNView" : {
                         "splitLine":{"color":"#F4F4F4"}
                     },
+				  	"pullToRefresh": {
+				  		"support": true,
+				  		"color": "#00001f",
+				  		"style": "circle"
+				  	},
 					"animationType": "pop-in",
 					"animationDuration": 300
 				}
@@ -225,24 +231,24 @@
         "backgroundColor": "#fff",
         "list": [{
             "pagePath": "pages/index/index",
-            "text": "首页"
-            // "iconPath": "static/img/footer_icon1.png",
-            // "selectedIconPath": "static/img/footer_icon1_on.png"
+            "text": "首页",
+            "iconPath": "static/img/footer_icon1.png",
+            "selectedIconPath": "static/img/footer_icon1_on.png"
         }, {
             "pagePath": "pages/store/store",
-            "text": "商城"
-            // "iconPath": "static/img/footer_icon2.png",
-            // "selectedIconPath": "static/img/footer_icon2_on.png"
+            "text": "商城",
+            "iconPath": "static/img/footer_icon2.png",
+            "selectedIconPath": "static/img/footer_icon2_on.png"
         },{
             "pagePath": "pages/income/income",
-            "text": "收益"
-            // "iconPath": "static/img/footer_icon3.png",
-            // "selectedIconPath": "static/img/footer_icon3_on.png"
+            "text": "收益",
+            "iconPath": "static/img/footer_icon3.png",
+            "selectedIconPath": "static/img/footer_icon3_on.png"
         },{
             "pagePath": "pages/person/person",
-            "text": "我的"
-            // "iconPath": "static/img/footer_icon4.png",
-            // "selectedIconPath": "static/img/footer_icon4_on.png"
+            "text": "我的",
+            "iconPath": "static/img/footer_icon4.png",
+            "selectedIconPath": "static/img/footer_icon4_on.png"
         }]
     },
     "globalStyle": {

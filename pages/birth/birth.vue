@@ -20,13 +20,32 @@
 		<view class="select_birth">
 			<view class="sb_till"><text :class="[show == true?'active':'']">生日当天有优惠哦!</text></view>
 			<view class="sb_box">
-				<picker class="sb_left" @change="bindDateChange" mode="date" :value="date" :start="startDate" :end="endDate">
-					<view>选择生日：{{date}}</view>
+				<picker style="width: 100%;" @change="bindDateChange" mode="date" :value="date" :start="startDate" :end="endDate">
+					<view style="display: flex;justify-content: space-between;align-items: center;">
+						<view class="sb_left" style="width: 30%;">选择生日：</view>
+						<view class="sb_right" style="width: 60%;display: flex;justify-content: flex-end;align-items: center;">
+							{{dateText}}
+							<image src="../../static/img/three.png" mode="widthFix"></image>
+							<!-- <picker mode="selector" :range="looks" @change="bindLook">
+								{{looks[idx]}}<image src="../../static/img/three.png" mode="widthFix"></image>
+							</picker> -->
+						</view>
+					</view>
 				</picker>
-				<view class="sb_right">
-					<picker mode="selector" :range="looks" @change="bindLook">
-						{{looks[idx]}}<image src="../../static/img/three.png" mode="widthFix"></image>
-					</picker>
+			</view>
+			<view class="sb_box" style="margin-top: 20upx;">
+				<view class="sb_left" style="width: 30%;">选择地区：</view>
+				<view class="sb_right" style="width: 60%;">
+					<w-picker
+						mode="region" 
+						:defaultVal="cityPickerValueDefault" 
+						@confirm="onConfirm" 
+						ref="region" 
+						:themeColor="themeColor" 
+					></w-picker>
+					<view class="acc_right" style="display: flex;justify-content: flex-end;align-items: center;" @tap="toShowRegion">
+						{{addressText}}<image src="../../static/img/three.png" mode="widthFix"></image>
+					</view>
 				</view>
 			</view>
 		</view>
@@ -35,6 +54,8 @@
 </template>
 
 <script>
+	import wPicker from "@/components/w-picker/w-picker.vue";
+	import api from '../../api/api'
 	export default{
 		data(){
 			return{
@@ -49,10 +70,21 @@
                 }],
 				current: 0,
 				date: "",
+				birth_num: 0,
+				dateText: "请选择",
 				show: false,
 				looks: ["仅自己可见","全部可见"],
-				idx: 0
+				idx: 0,
+				cityPickerValueDefault: [0, 0, 0],
+				themeColor: '#007AFF',
+				addressText: '请选择',
+				province_id: "",
+				city_id: "",
+				district_id: "",
 			}
+		},
+		components:{
+			wPicker
 		},
 		computed: {
 			startDate() {
@@ -73,7 +105,11 @@
 				console.log(this.current);
 			},
 			bindDateChange: function(e) {
+				let now_year = new Date().getFullYear();
 				this.date = e.target.value;
+				this.birth_num = now_year - parseInt(this.date.substring(0,4));
+				console.log(this.birth_num);
+				this.dateText = this.date;
 				this.show = true;
 				console.log(this.date)
 			},
@@ -82,7 +118,7 @@
 			},
 			toNext: function(e){
 				var that = this;
-				if(that.date == ""){
+				if(that.date == "" || that.dateText == "请选择"){
 					uni.showToast({
 						title: "请填写生日！",
 						duration: 1000,
@@ -90,8 +126,16 @@
 					})
 					return;
 				}
+				if(that.addressText == "请选择"){
+					uni.showToast({
+						title: "请填写地区！",
+						duration: 1000,
+						icon: 'none'
+					})
+					return;
+				}
 				uni.reLaunch({
-					url: "/pages/interest/interest?sex="+that.current+"&birth="+that.date,
+					url: "/pages/interest/interest?sex="+that.current+"&birth="+that.date+"&address="+that.addressText+"&province_id="+that.province_id+"&city_id="+that.city_id+"&district_id="+that.district_id+"&age="+that.birth_num,
 					animationType: 'pop-in',
 					animationDuration: 500
 				})
@@ -103,17 +147,33 @@
 				let day = date.getDate();
 
 				if (type == 'start') {
-					year = year - 60;
+					year = year - 100;
 				} else if (type == 'end') {
-					year = year + 2;
+					year = year;
 				}
 				month = month > 9 ? month : '0' + month;;
 				day = day > 9 ? day : '0' + day;
 				return `${year}-${month}-${day}`;
+			},
+			toShowRegion(e){
+				this.$refs.region.show();
+			},
+			onConfirm(e){
+				// console.log(e);
+				var that = this;
+				that.cityPickerValueDefault = e.defaultVal;
+				that.$refs.region.pickVal = e.defaultVal;
+				that.addressText = e.checkArr[0]+'-'+e.checkArr[1]+'-'+e.checkArr[2];
+				that.province_id = e.checkValue[0];
+				that.city_id = e.checkValue[1];
+				that.district_id = e.checkValue[2];
+				console.log(this.addressText,that.province_id,that.city_id,that.district_id);
 			}
 		},
-		onLoad() {
-			
+		onLoad(opt) {
+			api.get('index.php?act=login&op=address_list', {}).then(datas => {
+				console.log(datas)
+			})
 		}
 	}
 </script>

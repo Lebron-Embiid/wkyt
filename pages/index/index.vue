@@ -1,5 +1,6 @@
 <template>
 	<view class="index_view">
+		<view class="page_bg black"></view>
 		<video id="myVideo" @tap.stop="startPause" :src="url" :poster="poster_img" :loop="play" :show-fullscreen-btn="progress" :autoplay="autoplay" :show-center-play-btn="play" :enable-progress-gesture="progress" :controls="controls" direction="0"
 		 @touchstart='touchstart' @touchmove='touchmove' @touchend='touchend' @touchcancel='touchcancel' @timeupdate="timeupdate" @ended="ended">
 			<cover-view class="cv_title">{{title}}</cover-view>
@@ -14,7 +15,7 @@
 			
 			<!-- <cover-view class="cs_left_bg"></cover-view> -->
 			<!-- <cover-image class="cs_left" :src="tag_img"></cover-image> -->
-			<cover-view class="cs_right">{{type}}</cover-view>
+			<cover-view class="cs_right" @tap.stop="toCoverTap">{{type}}</cover-view>
 			<cover-view class="cover_word">
 				{{info}}
 			</cover-view>
@@ -61,16 +62,16 @@
 				member_watch:100,
 				member_video:100,
 				play: true,
-				title: '20/16',
+				title: '',
 				avatar: "",
 				collect: "0",
 				love: "0",
 				comment: "0",
 				share: "0",
-				type: "新惠设计主流款...",
-				info: "高品质制造平台,三体系认证,十环认证 平台,三体系认证十环认证平台,三体系认证,十环认证高品质制造",
-				red_title: "奔驰汽车",
-				red_info: "领导时代，驾驭未来",
+				type: "",
+				info: "",
+				red_title: "",
+				red_info: "",
 				money: 0,
 				red_show: false,
 				money_show: false,
@@ -88,7 +89,8 @@
 				wapUrl: "",
 				status: '',
 				num: 0,
-				video_num: 0
+				video_num: 0,
+				tb_url: ""
 			}
 		},
 		components:{
@@ -96,6 +98,10 @@
 		},
 		methods:{
 			preventTouchMove(){},
+			toCoverTap(){
+				var that = this;
+				plus.runtime.openURL(that.tb_url, function(res){});
+			},
 			startPause(){
 				console.log("tap");
 				if(this.isPlay == 1){
@@ -109,19 +115,25 @@
 			// 打开红包
 			open_red(){
 				if(this.num == 1){
+					//出现转盘
 					this.red_title = "";
 					this.red_info = "";
 					uni.navigateTo({
 						url: "/pages/awards/awards"
 					})
-				}else{
+				}else if(this.num == 2){
+					//红包、转盘都不出现
+					this.red_show = false;
+					this.money_show = false;
+				}
+				else{
+					//出现红包
 					api.post('index.php?act=video&op=reward', {
 						'video_id': this.video_id
 					}).then(datas => {
 						this.money = datas.amount;
 						this.red_title = '';
 						this.red_info = datas.message;
-					
 						//显示红包内容
 						this.red_show = false;
 						this.money_show = true;
@@ -305,6 +317,9 @@
 					that.title = datas.member_watch+'/'+datas.member_video;
 					that.status = datas.status;
 					that.num = datas.num;
+					that.red_title = datas.store_name;
+					that.red_info = datas.store_desc;
+					that.tb_url = datas.v_external;
 					if(that.num == 1){
 						that.video_num = 0;
 					}

@@ -139,12 +139,16 @@
 						uni.showToast({title: "注册失败", icon: 'none'});	
 						 return false;
 					}else{ 
-						uni.showToast({title: "注册成功,请返回登录", icon: 'none'});	
- 						 setTimeout(function () {
-						    uni.reLaunch({
-						        url: "/pages/login/login"
-						    }) 
-						}, 1500)
+						// uni.showToast({title: "注册成功,请返回登录", icon: 'none'});	
+						uni.clearStorageSync();
+						uni.setStorageSync('access_token', datas.key);
+						uni.showToast({title: '注册成功', icon: 'none', duration: 1500});
+						this.$access_token = uni.getStorageSync('access_token');
+ 						setTimeout(function () {
+						    uni.redirectTo({
+						    	url: "/pages/birth/birth"
+						    })
+						}, 500)
 					} 
 				})  
             }

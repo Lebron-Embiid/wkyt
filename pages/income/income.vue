@@ -82,7 +82,8 @@
 					this.getRewardList()
 				}else{
 					//获取提现列表
-					this.getWithdrawList()					
+					this.getWithdrawList();
+					console.log(this.withdraw_list);
 				}
 			},
 			getRewardList(){			
@@ -106,14 +107,16 @@
 				//TODO:分页处理
 				api.get('index.php?act=predeposit&op=pd_cash_list', {'curpage': this.withdraw_page_number}).then(datas => {
 					this.cash_count = datas.cash_count 
+					console.log(datas.cash_list);
 					for (let key in datas.cash_list) {
 						// console.log(datas.cash_list[key])
 						this.withdraw_list.push({
-							time: datas.list[key].lg_add_time,
+							time: datas.cash_list[key].pdc_add_time,
 							info: datas.cash_list[key].info,
 							num: datas.cash_list[key].pdc_amount
 						})
 					}
+					console.log(this.withdraw_list);
 				})
 			}
 		},

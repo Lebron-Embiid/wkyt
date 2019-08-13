@@ -1,9 +1,15 @@
 {
   "navigationBarTitleText": "收益",
+  "enablePullDownRefresh": true,
   "titleNView": {
     "splitLine": {
       "color": "#F4F4F4"
     }
+  },
+  "pullToRefresh": {
+    "support": true,
+    "color": "#00001f",
+    "style": "circle"
   },
   "animationType": "pop-in",
   "animationDuration": 300,

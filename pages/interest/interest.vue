@@ -35,7 +35,12 @@
 // 						name: "时尚穿搭",
 // 						select: 0
 // 					}
-				]
+				],
+				age: 0,
+				address: "",
+				province_id: "",
+				city_id: "",
+				district_id: ""
 			}
 		},
 		methods:{
@@ -71,7 +76,7 @@
 					})
 					return;
 				}			
-				
+				console.log(this.member_label,this.sex,this.birthday);
 				 api.post('index.php?act=member&op=hot', {'member_label':this.member_label,'sex':this.sex,'birthday':this.birthday}).then(datas => {   
 					 
 				 })
@@ -83,9 +88,16 @@
 			},
 		},
 		onLoad(opt) {
+			// console.log(opt);
 			var that = this;
 			that.sex = opt.sex;
 			that.birthday = opt.birth;
+			that.age = opt.age;
+			that.address = opt.address;
+			that.province_id = opt.province_id;
+			that.city_id = opt.city_id;
+			that.district_id = opt.district_id;
+			console.log(that.age,that.address,that.province_id,that.city_id,that.district_id);
 			 api.get('index.php?act=video&op=video_tag', {}).then(datas => {  
 				  // that.interest_list = datas.list;
 				  var interest = [];

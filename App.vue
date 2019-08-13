@@ -47,17 +47,22 @@
 </script>
 
 <style lang="scss">
-	.page_bg{background: #efeef3 !important;min-height: 100%;position: fixed;width: 100%;z-index: -1;left: 0;top: 0;}
+	.page_bg{
+		background: #efeef3 !important;min-height: 100%;position: fixed;width: 100%;z-index: -1;left: 0;top: 0;
+		&.black{
+			background: #000 !important;
+		}
+	}
 	.status_bar {  
 		height: var(--status-bar-height);  
 		width: 100%;  
-		background-color: #efeef3;  
+		// background-color: #efeef3;  
 	}  
 	.top_view {  
 		height: var(--status-bar-height);  
 		width: 100%;  
 		position: fixed;  
-		background-color: #efeef3;  
+		// background-color: #efeef3;  
 		top: 0;  
 		z-index: 999;  
 	}  

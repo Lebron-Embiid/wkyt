@@ -46,21 +46,27 @@
             if (uni.getStorageSync("access_token")) {
                 this.url = config.wapUrl + 'index.html?uid=50&key=' + uni.getStorageSync("access_token");
 				console.log(this.url)
+				// var w = plus.webview.create(this.url);
+				// w.show(); // 显示窗口
              } else {
                 uni.navigateTo({
                     url: '/pages/login/login',
                 });
             }
-        },		
-			onPullDownRefresh() {
-				var that = this;
-				setTimeout(function () { 
-					that.url = config.wapUrl + 'index.html?uid=50&key=' + uni.getStorageSync("access_token");
+        },
+		onHide(){
+			// var ws=plus.webview.currentWebview();
+			// plus.webview.close(ws);
+		},
+		onPullDownRefresh() {
+			var that = this;
+			setTimeout(function () { 
+				that.url = config.wapUrl + 'index.html?uid=50&key=' + uni.getStorageSync("access_token");
 				console.log(that.url)
-					uni.stopPullDownRefresh();
-				}, 1000);
-			}
+				uni.stopPullDownRefresh();
+			}, 1000);
 		}
+	}
 </script>
 
 <style scoped lang="scss">
