@@ -42,6 +42,7 @@
 
 <script>
 	import tabbar from '../../components/tabbar.vue'
+    import mInput from '../../components/m-input.vue'
 	var ctx = uni.createCanvasContext('firstCanvas')
 	// const videoContext = uni.createVideoContext('myVideo')
 	import api from '../../api/api'

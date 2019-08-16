@@ -20,6 +20,12 @@
                 "navigationBarTitleText": ""
             }
         },{
+            "path": "pages/login2/login2",
+            "style": {
+        		"navigationStyle": "custom",
+                "navigationBarTitleText": ""
+            }
+        },{
             "path": "pages/store/store",
             "style": {
                 "navigationBarTitleText": "商城",

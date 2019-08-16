@@ -1,22 +1,22 @@
-.interest_view.data-v-2ccffa88 {
+.interest_view.data-v-6c9d82ee {
   width: 100%;
   padding: 50rpx 25rpx 100rpx;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
-.interest_view .inter_title.data-v-2ccffa88 {
+.interest_view .inter_title.data-v-6c9d82ee {
     color: #000;
     font-size: 40rpx;
     text-align: center;
     margin-bottom: 10rpx;
 }
-.interest_view .inter_info.data-v-2ccffa88 {
+.interest_view .inter_info.data-v-6c9d82ee {
     color: #8a8a8a;
     font-size: 24rpx;
     text-align: center;
     margin-bottom: 100rpx;
 }
-.interest_view .interest_box.data-v-2ccffa88 {
+.interest_view .interest_box.data-v-6c9d82ee {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -33,23 +33,23 @@
         -ms-flex-wrap: wrap;
             flex-wrap: wrap;
 }
-.interest_view .interest_box .interest_item.data-v-2ccffa88 {
+.interest_view .interest_box .interest_item.data-v-6c9d82ee {
       width: 32%;
       margin: 0 2% 20rpx 0;
 }
-.interest_view .interest_box .interest_item.data-v-2ccffa88:nth-child(3n) {
+.interest_view .interest_box .interest_item.data-v-6c9d82ee:nth-child(3n) {
         margin-right: 0;
 }
-.interest_view .interest_box .interest_item .in_img.data-v-2ccffa88 {
+.interest_view .interest_box .interest_item .in_img.data-v-6c9d82ee {
         position: relative;
         margin-bottom: 15rpx;
 }
-.interest_view .interest_box .interest_item .in_img .in_photo.data-v-2ccffa88 {
+.interest_view .interest_box .interest_item .in_img .in_photo.data-v-6c9d82ee {
           display: block;
           width: 227rpx;
           height: 227rpx !important;
 }
-.interest_view .interest_box .interest_item .in_img .in_select.data-v-2ccffa88 {
+.interest_view .interest_box .interest_item .in_img .in_select.data-v-6c9d82ee {
           display: block;
           width: 29rpx;
           height: 29rpx !important;
@@ -58,7 +58,7 @@
           top: 10rpx;
           z-index: 3;
 }
-.interest_view .interest_box .interest_item .in_title.data-v-2ccffa88 {
+.interest_view .interest_box .interest_item .in_title.data-v-6c9d82ee {
         color: #2e2e2e;
         font-size: 28rpx;
         text-align: center;

@@ -25,14 +25,15 @@
         computed: mapState(['forcedLogin', 'hasLogin', 'userName']),
         methods: {},
         onShow() { 
-             this.url = config.wapUrl + '/tmpl/member/order_list.html?order_state='+this.order_state+'&key=' + uni.getStorageSync("access_token"); 
+             this.url = config.wapUrl + '/tmpl/member/order_list.html?order_state='+this.order_state+'&edition=2&key=' + uni.getStorageSync("access_token"); 
 					console.log(this.url)    
         },
 		 onLoad(opt) {
 			console.log(opt)
 			console.log(uni.getStorageSync("access_token"))
 			 this.order_state = opt.order_state
-             this.url = config.wapUrl + '/tmpl/member/order_list.html?order_state='+opt.order_state+'&key=' + uni.getStorageSync("access_token"); 
+             this.url = config.wapUrl + '/tmpl/member/order_list.html?order_state='+opt.order_state+'&edition=2&key=' + uni.getStorageSync("access_token"); 
+			 console.log(this.url)    
 		 }
     }
 </script>

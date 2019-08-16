@@ -4,5 +4,7 @@
   "navigationBarBackgroundColor": "#efeef3",
   "animationType": "pop-in",
   "animationDuration": 300,
-  "usingComponents": {}
+  "usingComponents": {
+    "w-picker": "/components/w-picker/w-picker"
+  }
 }

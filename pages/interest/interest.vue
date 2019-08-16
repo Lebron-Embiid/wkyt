@@ -76,15 +76,21 @@
 					})
 					return;
 				}			
-				console.log(this.member_label,this.sex,this.birthday);
-				 api.post('index.php?act=member&op=hot', {'member_label':this.member_label,'sex':this.sex,'birthday':this.birthday}).then(datas => {   
-					 
+ 				 api.post('index.php?act=member&op=hot', {
+					 'member_label':this.member_label,
+					 'sex':this.sex,
+					 'age':this.age,
+					 'address':this.address,
+					 'province_id':this.province_id,
+					 'city_id':this.city_id,
+					 'area_id':this.district_id, 
+					 }).then(datas => {   					 
+					 uni.reLaunch({
+					 	url: "/pages/index/index",
+					 	animationType: 'pop-in',
+					 	animationDuration: 500
+					 })
 				 })
-				uni.reLaunch({
-					url: "/pages/index/index",
-					animationType: 'pop-in',
-					animationDuration: 500
-				})
 			},
 		},
 		onLoad(opt) {
