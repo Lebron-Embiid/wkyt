@@ -230,6 +230,16 @@
 				}
             }
         }
+        ,{
+            "path" : "pages/household_center/household_center",
+            "style" : {
+            	"navigationBarTitleText": "代理中心",
+            	"app-plus":{
+            		"animationType": "pop-in",
+            		"animationDuration": 300
+            	}
+            }
+        }
     ],
     "tabBar": {
         "color": "#1e1e1e",

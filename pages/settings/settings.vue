@@ -131,7 +131,7 @@
 				console.log(datas)
 				that.username = datas.member_info.user_name
 				that.avatar_pic = datas.member_info.avator
-				that.avatar = datas.member_info.avator
+				that.avatar = datas.member_info.member_avatar
 			})
         },
     }

@@ -1,8 +1,8 @@
-.reg_view.data-v-f3cbbbb4 {
+.reg_view.data-v-6a334a64 {
   width: 100%;
   padding: 140rpx 90rpx 0;
 }
-.reg_view .reg_logo.data-v-f3cbbbb4 {
+.reg_view .reg_logo.data-v-6a334a64 {
     width: 190rpx;
     height: 190rpx;
     margin: 0 auto 80rpx;
@@ -23,12 +23,12 @@
     -webkit-box-shadow: 0 0 20rpx #f3f3f3;
             box-shadow: 0 0 20rpx #f3f3f3;
 }
-.reg_view .reg_logo image.data-v-f3cbbbb4 {
+.reg_view .reg_logo image.data-v-6a334a64 {
       display: block;
       width: 130rpx;
       height: 130rpx !important;
 }
-.reg_view .agree_box.data-v-f3cbbbb4 {
+.reg_view .agree_box.data-v-6a334a64 {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -45,23 +45,23 @@
     font-size: 22rpx;
     margin-top: 30rpx;
 }
-.reg_view .agree_box checkbox.data-v-f3cbbbb4 {
+.reg_view .agree_box checkbox.data-v-6a334a64 {
       -webkit-transform: scale(0.7);
           -ms-transform: scale(0.7);
               transform: scale(0.7);
 }
-.reg_view .agree_box .text.data-v-f3cbbbb4 {
+.reg_view .agree_box .text.data-v-6a334a64 {
       color: #257cf2;
 }
-.reg_view .to_login.data-v-f3cbbbb4 {
+.reg_view .to_login.data-v-6a334a64 {
     text-align: right;
     color: #c2c2c2;
     font-size: 22rpx;
 }
-.reg_view .to_login text.data-v-f3cbbbb4 {
+.reg_view .to_login text.data-v-6a334a64 {
       color: #257cf2;
 }
-.reg_view .yzm.data-v-f3cbbbb4 {
+.reg_view .yzm.data-v-6a334a64 {
     color: #257cf2;
     font-size: 20rpx;
     width: 25%;

@@ -136,7 +136,7 @@
 					username:this.account, password:this.password,code:this.code
 				}).then(datas => { 
 					if(datas.status == 1){
-						uni.showToast({title: "注册失败", icon: 'none'});	
+						uni.showToast({title: datas.msg, icon: 'none'});	
 						 return false;
 					}else{ 
 						// uni.showToast({title: "注册成功,请返回登录", icon: 'none'});	

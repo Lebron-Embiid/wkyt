@@ -37,6 +37,9 @@
 				<navigator class="navigator" url="/pages/withdraw/withdraw">提现<image src="../../static/img/next.png" mode="widthFix"></image></navigator>
 			</view>
 			<view class="nav_item">
+				<navigator class="navigator"   @tap="houSehold">代理中心<image src="../../static/img/next.png" mode="widthFix"></image></navigator>
+			</view>
+			<view class="nav_item">
 				<view class="navigator" @click="logOut">退出登录</view>
 			</view>
 		</view>
@@ -60,6 +63,7 @@
 				avatar_url: '../../static/img/person_avatar.png',
 				money:0,
 				nickname:'',
+				mobile:'',
 				orders:[],
 				status_0:0,
 				status_1:0,
@@ -75,6 +79,11 @@
 			toSettings(e){
 				uni.navigateTo({
 					url: "/pages/settings/settings"
+				})
+			},
+			houSehold(e){
+				uni.navigateTo({
+					url: "/pages/household_center/household_center?mobile="+this.mobile
 				})
 			},
 			logOut(){
@@ -112,6 +121,7 @@
 					that.id = data.member_info.member_id;
 					that.avatar_url = data.member_info.avator;
 					that.nickname = data.member_info.user_name; 
+					that.mobile = data.member_info.member_mobile; 
 				}
 			});
 			uni.startPullDownRefresh();

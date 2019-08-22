@@ -218,6 +218,7 @@
 											}
 										},
 										fail: (res) => {
+											uni.hideLoading();
 											uni.showToast({
 												title: res.errMsg,
 												icon: 'none'
@@ -229,17 +230,17 @@
 										// uni.showLoading({
 										// 	title: '下载中: ' + res.progress +'%'
 										// })
-										uni.showToast({
-											title: '下载中: ' + res.progress +'%',
-											icon: 'none'
-										})
+										// uni.showToast({
+										// 	title: '下载中: ' + res.progress +'%',
+										// 	icon: 'none'
+										// })
 										console.log('下载进度' + res.progress);
 										// console.log('已经下载的数据长度' + res.totalBytesWritten);
 										// console.log('预期需要下载的数据总长度' + res.totalBytesExpectedToWrite);
 									
 										// 测试条件，取消下载任务。
 										if (res.progress == 100) {
-											uni.hideLoading();
+											// uni.hideLoading();
 											// downloadTask.abort();
 										}
 									});
