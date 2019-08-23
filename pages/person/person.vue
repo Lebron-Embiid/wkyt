@@ -37,7 +37,7 @@
 				<navigator class="navigator" url="/pages/withdraw/withdraw">提现<image src="../../static/img/next.png" mode="widthFix"></image></navigator>
 			</view>
 			<view class="nav_item">
-				<navigator class="navigator"   @tap="houSehold">代理中心<image src="../../static/img/next.png" mode="widthFix"></image></navigator>
+				<navigator class="navigator"   @tap="houSehold">我的收益<image src="../../static/img/next.png" mode="widthFix"></image></navigator>
 			</view>
 			<view class="nav_item">
 				<view class="navigator" @click="logOut">退出登录</view>
@@ -83,7 +83,7 @@
 			},
 			houSehold(e){
 				uni.navigateTo({
-					url: "/pages/household_center/household_center?mobile="+this.mobile
+					url: "/pages/income/income"
 				})
 			},
 			logOut(){

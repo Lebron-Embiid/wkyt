@@ -135,8 +135,9 @@
 						//成功
 						uni.clearStorageSync();
 						uni.setStorageSync('access_token', datas.key);
+						uni.setStorageSync('mobile', datas.username);
 						uni.showToast({title: '登录成功', icon: 'none', duration: 1500});
-						that.$access_token = uni.getStorageSync('access_token');
+						that.$access_token = uni.getStorageSync('access_token'); 
 						 setTimeout(function () {
 							uni.reLaunch({
 								url: "/pages/index/index"

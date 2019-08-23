@@ -1,7 +1,7 @@
 <template>
 	<view class="index_view">
 		<view class="page_bg black"></view>
-		<video id="myVideo" @tap.stop="startPause" :src="url" :poster="poster_img" :loop="play" :show-fullscreen-btn="progress" :autoplay="autoplay" :show-center-play-btn="play" :enable-progress-gesture="progress" :controls="controls" direction="0"
+		<video id="myVideo" @tap.stop="startPause" :src="url" :poster="poster_img" :loop="play" :show-fullscreen-btn="progress" :autoplay="autoplay" objectFit="cover" :show-center-play-btn="play" :enable-progress-gesture="progress" :controls="controls" direction="0"
 		 @touchstart='touchstart' @touchmove='touchmove' @touchend='touchend' @touchcancel='touchcancel' @timeupdate="timeupdate" @ended="ended">
 			<cover-view class="cv_title">{{title}}</cover-view>
 			

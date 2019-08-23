@@ -24,7 +24,7 @@
     "pages/settings/settings",
     "pages/my_collect_detail/my_collect_detail",
     "pages/agreement/agreement",
-    "pages/household _center/household _center"
+    "pages/household_center/household_center"
   ],
   "window": {
     "navigationBarTextStyle": "black",
@@ -49,8 +49,8 @@
         "selectedIconPath": "static/img/footer_icon2_on.png"
       },
       {
-        "pagePath": "pages/income/income",
-        "text": "收益",
+        "pagePath": "pages/household_center/household_center",
+        "text": "代理中心",
         "iconPath": "static/img/footer_icon3.png",
         "selectedIconPath": "static/img/footer_icon3_on.png"
       },

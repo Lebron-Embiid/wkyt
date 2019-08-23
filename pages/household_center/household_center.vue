@@ -18,6 +18,7 @@
         data() {
             return {
                 url: '', 
+                mobile: '', 
                 webviewStyles: {
                     progress: {
                         color: '#FF3333'
@@ -30,10 +31,10 @@
 		},
         computed: mapState(['forcedLogin', 'hasLogin', 'userName']),
         methods: {}, 
-		onLoad(opt){
-			this.mobile = opt.mobile
-			if (uni.getStorageSync("access_token")) {
-			    this.url = config.wapUrl + 'tmpl/app_manager.html?mobile='+opt.mobile+'&key=' + uni.getStorageSync("access_token");
+		onLoad(){
+			this.mobile = uni.getStorageSync("mobile")
+ 			if (uni.getStorageSync("access_token")) {
+			    this.url = config.wapUrl + 'tmpl/app_manager.html?mobile='+uni.getStorageSync("mobile")+'&key=' + uni.getStorageSync("access_token");
 				console.log(this.url) 
 			 } else {
 			    uni.navigateTo({

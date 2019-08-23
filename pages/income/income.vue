@@ -8,7 +8,7 @@
 						<view class="itl_money">{{money}}</view>
 					</view>
 					<view class="it_right">
-						<view>1.当月广告基础收益为0.08元一条，随市场变化及商家收益升涨；</view>
+						<view>1.当月广告基础收益为{{setting_profit}}元一条，随市场变化及商家收益升涨；</view>
 						<view>2.用户观看广告上限后可每天在商品界面收取1活力值；</view>
 					</view>
 				</view> 
@@ -59,6 +59,7 @@
 			return{
 				money: "0.00",
 				income: "0.00",
+				setting_profit:"0",
 				total_page_count:1,
 				cash_count:1,
 				navbar:[{name:"收益记录"},{name:'提现'}],
@@ -92,6 +93,7 @@
 				api.get('index.php?act=predeposit&op=pd_list', {'curpage': this.income_page_number}).then(datas => {
 					this.money = datas.available_predeposit
 					this.income = datas.total_reward_amount
+					this.setting_profit = datas.setting_profit
 					this.total_page_count = datas.page.total_page_count
 					for (let key in datas.list) {
 						// console.log(datas.list[key])

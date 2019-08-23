@@ -43,7 +43,7 @@
         },{
             "path": "pages/income/income",
             "style": {
-                "navigationBarTitleText": "收益",
+                "navigationBarTitleText": "我的收益",
 				"enablePullDownRefresh": true,
 				"app-plus":{
 					"titleNView" : {
@@ -256,8 +256,8 @@
             "iconPath": "static/img/footer_icon2.png",
             "selectedIconPath": "static/img/footer_icon2_on.png"
         },{
-            "pagePath": "pages/income/income",
-            "text": "收益",
+            "pagePath": "pages/household_center/household_center",
+            "text": "代理中心",
             "iconPath": "static/img/footer_icon3.png",
             "selectedIconPath": "static/img/footer_icon3_on.png"
         },{

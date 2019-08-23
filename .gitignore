@@ -1,4 +1,4 @@
 .idea
-unpackage/dist
-unpackage/res
-config
+unpackage
+unpackage
+config/index.js

@@ -15,11 +15,18 @@
             </view>
             <view class="input-row">
 				<image src="../../static/img/login_icon2.png" mode="widthFix"></image>
-                <m-input class="m-input" type="password" displayable v-model="password" placeholder="请输入密码"></m-input>
+                <m-input class="m-input" type="password" v-model="password" placeholder="请输入密码"></m-input>
+            </view>
+            <view class="input-row">
+				<image src="../../static/img/reg3.png" mode="widthFix"></image>
+                <m-input class="m-input" type="text" v-model="invitation_code" placeholder="邀请码"></m-input>
             </view>
         </view>
 		<view class="agree_box">
-			<checkbox value="" checked />
+
+			<checkbox-group class="checkbox" @change="changeAgree">
+				<checkbox value="" :checked="isAgree" />
+			</checkbox-group>
 			已同意<navigator class="text" @click="toAgree">《旺客易推APP软件协议》</navigator>
 		</view>
         <view class="btn-row">
@@ -42,9 +49,11 @@
             return {
                 account: '',
                 password: '',
+                invitation_code: '',
                 code: '',
 				second:0,
 				mobile_code:100000,
+				isAgree: 0
             }
         },
 		onLoad() {
@@ -60,6 +69,13 @@
 			}
 		},
         methods: {
+			changeAgree(){
+				if(this.isAgree == 0){
+					this.isAgree = 1;
+				}else{
+					this.isAgree = 0;
+				}
+			},
 			toAgree() { 
 				uni.redirectTo({
 					url: "/pages/agreement/agreement"
@@ -81,7 +97,7 @@
 						icon: 'none'
 					})	
 					return false;
-				}
+				} 
 				uni.request({
 				    url: api.config.baseURL+'/index.php?act=ihuyi&op=register',  
  					method: 'POST',
@@ -132,8 +148,25 @@
 					})	
 					return false;
 				}
+				
+				if(this.invitation_code != ''){
+					if(this.invitation_code.length != 11){
+						uni.showToast({
+							title:"请填写正确的邀请码",
+							icon: 'none'
+						})	
+						return false;
+					}
+				} 
+				if(this.isAgree != 1){
+					uni.showToast({
+						title:"请同意旺客易推软件协议",
+						icon: 'none'
+					})	
+					return false;
+				}
 				api.post('index.php?act=login&op=tel_register', {
-					username:this.account, password:this.password,code:this.code
+					username:this.account, password:this.password,code:this.code,invitation_code:this.invitation_code
 				}).then(datas => { 
 					if(datas.status == 1){
 						uni.showToast({title: datas.msg, icon: 'none'});	
@@ -142,6 +175,7 @@
 						// uni.showToast({title: "注册成功,请返回登录", icon: 'none'});	
 						uni.clearStorageSync();
 						uni.setStorageSync('access_token', datas.key);
+						uni.setStorageSync('mobile', datas.username);
 						uni.showToast({title: '注册成功', icon: 'none', duration: 1500});
 						this.$access_token = uni.getStorageSync('access_token');
  						setTimeout(function () {
